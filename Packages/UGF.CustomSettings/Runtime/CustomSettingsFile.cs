@@ -29,10 +29,6 @@ namespace UGF.CustomSettings.Runtime
             string text = JsonUtility.ToJson(instance, true);
 
             File.WriteAllText(FilePath, text);
-
-#if UNITY_EDITOR
-            UnityEditor.AssetDatabase.ImportAsset(FilePath);
-#endif
         }
 
         protected override TData Load()

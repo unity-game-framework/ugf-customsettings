@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf8c44cb4d98d14f9e63735eaa694c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Editor External Package
+  m_name: Editor Package External
   m_material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_mask:
     serializedVersion: 2
