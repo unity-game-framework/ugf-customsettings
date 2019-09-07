@@ -1,0 +1,16 @@
+{
+    "name": "UGF.CustomSettings.Editor",
+    "references": [
+        "GUID:ff62901452104d14cae29322ac133c05"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
