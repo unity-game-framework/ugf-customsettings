@@ -3,12 +3,40 @@ using UnityEngine;
 
 namespace UGF.CustomSettings.Editor
 {
+    /// <summary>
+    /// Represents custom settings stored at specified asset path as settings data asset, but with additional options specific for package settings.
+    /// </summary>
+    /// <remarks>
+    /// The settings can be saved at any path under the 'Assets' folder or in 'ProjectSettings' folder.
+    ///
+    /// The default path for assets under the 'Assets' folder is 'Assets/Settings/Editor', and 'ProjectSettings/Packages/{packageName}' for external folder.
+    /// </remarks>
     public class CustomSettingsEditorPackage<TData> : CustomSettingsEditorAsset<TData> where TData : ScriptableObject
     {
+        /// <summary>
+        /// Creates settings with the specified package name and settings name.
+        /// </summary>
+        /// <remarks>
+        /// When 'useExternalFolder' specified as 'True', settings data will be stored at 'ProjectSettings/Packages/{packageName}', otherwise at 'Assets/Settings/Editor'.
+        ///
+        /// The name of the settings data asset will be a combine of the 'packageName' and 'settingsName'. (Example: 'packageName.settingsName')
+        /// </remarks>
+        /// <param name="packageName">The name of the package.</param>
+        /// <param name="useExternalFolder">The value that determines whether to store settings data asset at external project settings folder.</param>
+        /// <param name="settingsName">The name of the settings.</param>
         public CustomSettingsEditorPackage(string packageName, bool useExternalFolder, string settingsName = "settings") : this(packageName, settingsName, useExternalFolder ? $"ProjectSettings/Packages/{packageName}" : "Assets/Settings/Editor")
         {
         }
 
+        /// <summary>
+        /// Creates settings with the specified package name and settings name.
+        /// </summary>
+        /// <remarks>
+        /// The name of the settings data asset will be a combine of the 'packageName' and 'settingsName'. (Example: 'packageName.settingsName')
+        /// </remarks>
+        /// <param name="packageName">The name of the package.</param>
+        /// <param name="settingsName">The name of the settings.</param>
+        /// <param name="folderPath">The path of the folder to store settings data asset.</param>
         public CustomSettingsEditorPackage(string packageName, string settingsName = "settings", string folderPath = "Assets/Settings/Editor") : base($"{folderPath}/{packageName}.{settingsName}.asset")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));

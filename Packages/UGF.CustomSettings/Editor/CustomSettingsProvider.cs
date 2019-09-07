@@ -7,11 +7,21 @@ using UnityEngine.UIElements;
 
 namespace UGF.CustomSettings.Editor
 {
+    /// <summary>
+    /// Represents 'SettingsProvider' for the specified 'CustomSettings' to display in 'Project Settings' or 'User Settings'.
+    /// </summary>
     public class CustomSettingsProvider<TData> : SettingsProvider where TData : ScriptableObject
     {
         private AssetSettingsProvider m_provider;
         private readonly CustomSettings<TData> m_settings;
 
+        /// <summary>
+        /// Creates provider with the specified settings path and custom settings.
+        /// </summary>
+        /// <param name="path">The path of the settings in settings window.</param>
+        /// <param name="settings">The settings of the specific data to display.</param>
+        /// <param name="scopes">The scope of the settings.</param>
+        /// <param name="keywords">The search keywords.</param>
         public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords ?? GetSearchKeywordsFromSerializedObject(new SerializedObject(settings.Data)))
         {
             m_settings = settings ?? throw new ArgumentNullException(nameof(settings));

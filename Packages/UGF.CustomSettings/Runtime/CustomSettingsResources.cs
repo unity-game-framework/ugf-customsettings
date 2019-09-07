@@ -3,10 +3,23 @@ using UnityEngine;
 
 namespace UGF.CustomSettings.Runtime
 {
+    /// <summary>
+    /// Represents custom settings stored at resources folder as settings data asset.
+    /// </summary>
+    /// <remarks>
+    /// A calling of the 'Save' method has no effect.
+    /// </remarks>
     public class CustomSettingsResources<TData> : CustomSettingsPlayMode<TData> where TData : ScriptableObject
     {
+        /// <summary>
+        /// Gets the path of the asset at resources folder.
+        /// </summary>
         public string ResourcesPath { get; }
 
+        /// <summary>
+        /// Creates settings with the specified path of the asset at resources folder.
+        /// </summary>
+        /// <param name="resourcesPath">The path of the asset at resources folder.</param>
         public CustomSettingsResources(string resourcesPath)
         {
             if (string.IsNullOrEmpty(resourcesPath)) throw new ArgumentException("The resources path cannot be null or empty.", nameof(resourcesPath));
@@ -14,7 +27,7 @@ namespace UGF.CustomSettings.Runtime
             ResourcesPath = resourcesPath;
         }
 
-        protected override void Save(TData instance)
+        protected override void Save(TData data)
         {
         }
 
