@@ -23,7 +23,7 @@ UGF.CustomSettings
 
 ## Description
 
-No description.
+Provides utilities to implement custom `ProjectSettings` or `Preferences`, for editor or runtime.
 
 ## How to Install
 
