@@ -1,0 +1,13 @@
+{
+    "m_name": "File",
+    "m_material": {
+        "instanceID": 0
+    },
+    "m_mask": {
+        "serializedVersion": "2",
+        "m_Bits": 32
+    },
+    "m_state": true,
+    "m_list": [],
+    "m_list2": []
+}

@@ -1,8 +1,7 @@
 {
     "name": "UGF.CustomSettings.Runtime.Tests",
     "references": [
-        "GUID:ff62901452104d14cae29322ac133c05",
-        "GUID:4806a292f99efd44aba38aea20847e17"
+        "GUID:ff62901452104d14cae29322ac133c05"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
