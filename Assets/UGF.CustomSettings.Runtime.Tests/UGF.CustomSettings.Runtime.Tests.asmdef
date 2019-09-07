@@ -1,0 +1,18 @@
+{
+    "name": "UGF.CustomSettings.Runtime.Tests",
+    "references": [
+        "GUID:ff62901452104d14cae29322ac133c05"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": []
+}
