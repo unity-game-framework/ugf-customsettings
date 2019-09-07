@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12cd2b98a4bd45ba960321a43e321fa8, type: 3}
-  m_Name: com.test.package.settings
+  m_Name: TestPackageSettings
   m_EditorClassIdentifier: 
   m_name: Package
-  m_material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_material: {fileID: 0}
   m_mask:
     serializedVersion: 2
-    m_Bits: 32
-  m_state: 1
+    m_Bits: 0
+  m_state: 0
   m_list: []
-  m_list2:
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
+  m_list2: []

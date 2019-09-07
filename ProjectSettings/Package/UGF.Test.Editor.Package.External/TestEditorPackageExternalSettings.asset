@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
+--- !u!114 &1
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf8c44cb4d98d14f9e63735eaa694c6, type: 3}
-  m_Name: com.test.editor.package.settings
+  m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Editor Package
-  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_name: Editor Package External
+  m_material: {fileID: 0}
   m_mask:
     serializedVersion: 2
-    m_Bits: 4
-  m_state: 1
+    m_Bits: 0
+  m_state: 0
   m_list: []
-  m_list2:
-  - {x: 0, y: 0, z: 0, w: 0}
-  - {x: 0, y: 0, z: 0, w: 0}
+  m_list2: []

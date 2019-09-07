@@ -26,13 +26,11 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         /// <remarks>
         /// The folder path must be under the 'Assets' folder and must be a part of the 'Resources'.
-        ///
-        /// The name of the settings data asset will be a combine of the 'packageName' and 'settingsName'. (Example: 'packageName.settingsName')
         /// </remarks>
         /// <param name="packageName">The name of the package.</param>
         /// <param name="settingsName">The name of the settings.</param>
         /// <param name="folderPath">The editor folder to store settings data asset.</param>
-        public CustomSettingsPackage(string packageName, string settingsName = "settings", string folderPath = "Assets/Settings/Resources") : base($"{packageName}.{settingsName}")
+        public CustomSettingsPackage(string packageName, string settingsName = "Settings", string folderPath = "Assets/Settings/Resources") : base($"{packageName}/{settingsName}")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));
             if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(settingsName));
