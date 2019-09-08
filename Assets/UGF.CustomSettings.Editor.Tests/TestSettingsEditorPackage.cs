@@ -5,7 +5,11 @@ namespace UGF.CustomSettings.Editor.Tests
 {
     public static class TestSettingsEditorPackage
     {
-        public static CustomSettingsEditorPackage<TestSettingsEditorData> Settings { get; } = new CustomSettingsEditorPackage<TestSettingsEditorData>("UGF.Test.Editor.Package", "TestEditorPackageSettings");
+        public static CustomSettingsEditorPackage<TestSettingsEditorData> Settings { get; } = new CustomSettingsEditorPackage<TestSettingsEditorData>
+        (
+            "UGF.Test.Editor.Package",
+            "TestEditorPackageSettings"
+        );
 
         [SettingsProvider, UsedImplicitly]
         private static SettingsProvider GetSettingsProvider()
