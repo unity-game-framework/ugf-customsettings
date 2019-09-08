@@ -16,23 +16,10 @@ namespace UGF.CustomSettings.Editor
         /// <summary>
         /// Creates settings with the specified package name and settings name.
         /// </summary>
-        /// <remarks>
-        /// When 'useExternalFolder' specified as 'True', settings data will be stored at 'ProjectSettings/Packages', otherwise at 'Assets/Settings/Editor'.
-        /// </remarks>
-        /// <param name="packageName">The name of the package.</param>
-        /// <param name="useExternalFolder">The value that determines whether to store settings data asset at external project settings folder.</param>
-        /// <param name="settingsName">The name of the settings.</param>
-        public CustomSettingsEditorPackage(string packageName, bool useExternalFolder, string settingsName = "Settings") : this(packageName, settingsName, useExternalFolder ? "ProjectSettings/Package" : "Assets/Settings/Editor")
-        {
-        }
-
-        /// <summary>
-        /// Creates settings with the specified package name and settings name.
-        /// </summary>
         /// <param name="packageName">The name of the package.</param>
         /// <param name="settingsName">The name of the settings.</param>
         /// <param name="folderPath">The path of the folder to store settings data asset.</param>
-        public CustomSettingsEditorPackage(string packageName, string settingsName = "Settings", string folderPath = "Assets/Settings/Editor") : base($"{folderPath}/{packageName}/{settingsName}.asset")
+        public CustomSettingsEditorPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsEditorUtility.DefaultPackageFolder) : base($"{folderPath}/{packageName}/{settingsName}.asset")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));
             if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(settingsName));
