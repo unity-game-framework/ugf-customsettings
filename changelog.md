@@ -26,6 +26,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 0.2.0-preview - 2019-09-08
+- [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.1.0-preview...0.2.0-preview)
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/2?closed=1)
+
+### Added
+- `CustomSettingsUtility` with `DefaultPackageFolder` constant to create `CustomSettingsPackage`.
+- `CustomSettingsEditorUtility` with `DefaultPackageFolder` and `DefaultPackageExternalFolder` constants to create `CustomSettingsEditorPackage` with different folders.
+
+### Removed
+- `CustomSettingsEditorPackage` constructor to create external package settings, use constructor with specified folder path.
+
+### Fixed
+- `CustomSettingsEditorPackage` use incorrect path for external package settings.
+
 ## 0.1.0-preview - 2019-09-08
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/92e2613...0.1.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/1?closed=1)
