@@ -26,6 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 1.0.0 - 2019-09-15
+- [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.2.0-preview...1.0.0)
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/3?closed=1)
+
+### Added
+- `CustomSettingsGUIScope`: `GUI` scope to drawing editor with the same setup as in `Inspector` window.
+
 ## 0.2.0-preview - 2019-09-08
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.1.0-preview...0.2.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/2?closed=1)
