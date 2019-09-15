@@ -3,18 +3,18 @@ using UnityEditor;
 
 namespace UGF.CustomSettings.Editor
 {
-    internal class CustomSettingsGUIScope : IDisposable
+    public class CustomSettingsGUIScope : IDisposable
     {
         private readonly bool m_hierarchyMode;
         private readonly bool m_wideMode;
 
-        public CustomSettingsGUIScope()
+        public CustomSettingsGUIScope(bool enable = true)
         {
             m_hierarchyMode = EditorGUIUtility.hierarchyMode;
             m_wideMode = EditorGUIUtility.wideMode;
 
-            EditorGUIUtility.hierarchyMode = true;
-            EditorGUIUtility.wideMode = true;
+            EditorGUIUtility.hierarchyMode = enable;
+            EditorGUIUtility.wideMode = enable;
         }
 
         public void Dispose()
