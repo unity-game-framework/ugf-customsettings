@@ -50,6 +50,7 @@ namespace UGF.CustomSettings.Editor
         {
             if (m_provider != null)
             {
+                using (new CustomSettingsGUIScope())
                 using (var change = new EditorGUI.ChangeCheckScope())
                 {
                     m_provider.OnGUI(searchContext);
