@@ -4,7 +4,7 @@ UGF.CustomSettings
 
 ## Info
 
-- **Version**: `0.2.0-preview`
+- **Version**: `1.0.0`
 - **Unity Version**: `2019.2.0`
 - **Api Compatibility Level**: `.NET Standard 2.0`
 
@@ -18,7 +18,7 @@ UGF.CustomSettings
 
 ### Registries
 
-- [Stable][2] (N/A)
+- [Stable][2]
 - [Develop][3]
 
 ## Description
