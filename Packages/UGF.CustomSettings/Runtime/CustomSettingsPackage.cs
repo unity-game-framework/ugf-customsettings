@@ -41,7 +41,7 @@ namespace UGF.CustomSettings.Runtime
             FolderPath = folderPath;
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
 #if UNITY_EDITOR
             string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
@@ -62,7 +62,7 @@ namespace UGF.CustomSettings.Runtime
             }
 #endif
 
-            return base.Load();
+            return base.OnLoadSettings();
         }
     }
 }

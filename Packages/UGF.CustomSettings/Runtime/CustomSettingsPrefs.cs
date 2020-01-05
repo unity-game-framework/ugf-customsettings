@@ -31,7 +31,7 @@ namespace UGF.CustomSettings.Runtime
             ForceSave = forceSave;
         }
 
-        protected override void Save(TData data)
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -45,7 +45,7 @@ namespace UGF.CustomSettings.Runtime
             }
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             string text = PlayerPrefs.GetString(Key, "{}");
             var data = ScriptableObject.CreateInstance<TData>();

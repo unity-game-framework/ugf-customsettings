@@ -41,7 +41,7 @@ namespace UGF.CustomSettings.Editor
             AssetPath = assetPath;
         }
 
-        protected override void Save(TData data)
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -51,7 +51,7 @@ namespace UGF.CustomSettings.Editor
             }
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             return HasExternalPath ? LoadFromFile(AssetPath) : LoadFromAssetDatabase(AssetPath);
         }

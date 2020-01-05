@@ -25,7 +25,7 @@ namespace UGF.CustomSettings.Runtime
             FilePath = filePath;
         }
 
-        protected override void Save(TData data)
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -41,7 +41,7 @@ namespace UGF.CustomSettings.Runtime
             File.WriteAllText(FilePath, text);
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             string text = "{}";
             var data = ScriptableObject.CreateInstance<TData>();

@@ -27,11 +27,11 @@ namespace UGF.CustomSettings.Runtime
             ResourcesPath = resourcesPath;
         }
 
-        protected override void Save(TData data)
+        protected override void OnSaveSettings(TData data)
         {
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             var data = Resources.Load<TData>(ResourcesPath);
 

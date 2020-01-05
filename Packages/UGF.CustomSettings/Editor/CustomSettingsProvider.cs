@@ -58,7 +58,7 @@ namespace UGF.CustomSettings.Editor
 
                     if (EditorGUI.EndChangeCheck())
                     {
-                        m_settings.Save();
+                        m_settings.SaveSettings();
                     }
                 }
             }

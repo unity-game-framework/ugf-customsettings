@@ -26,7 +26,7 @@ namespace UGF.CustomSettings.Editor
             Key = key;
         }
 
-        protected override void Save(TData data)
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -35,7 +35,7 @@ namespace UGF.CustomSettings.Editor
             EditorPrefs.SetString(Key, text);
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             string text = EditorPrefs.GetString(Key, "{}");
             var target = ScriptableObject.CreateInstance<TData>();
