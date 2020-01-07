@@ -52,6 +52,11 @@ namespace UGF.CustomSettings.Editor
 
             if (HasExternalPath)
             {
+                if (!File.Exists(AssetPath))
+                {
+                    CreateDirectory(AssetPath);
+                }
+
                 InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, AssetPath, true);
             }
         }
