@@ -11,6 +11,7 @@ namespace UGF.CustomSettings.Runtime
     /// In build just loads settings data asset from resources.
     ///
     /// In editor settings data asset automatically created at specified editor folder, if asset not yet created.
+    /// Calling ClearSettings has effect only in Editor.
     ///
     /// The default folder path is 'Assets/Settings/Resources'.
     /// </remarks>
@@ -63,6 +64,18 @@ namespace UGF.CustomSettings.Runtime
 #endif
 
             return base.OnLoadSettings();
+        }
+
+        protected override void OnClearSettings()
+        {
+#if UNITY_EDITOR
+            string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
+
+            if (File.Exists(assetPath))
+            {
+                UnityEditor.AssetDatabase.MoveAssetToTrash(assetPath);
+            }
+#endif
         }
     }
 }

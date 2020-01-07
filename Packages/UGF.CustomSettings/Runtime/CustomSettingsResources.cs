@@ -7,7 +7,7 @@ namespace UGF.CustomSettings.Runtime
     /// Represents custom settings stored at resources folder as settings data asset.
     /// </summary>
     /// <remarks>
-    /// A calling of the 'Save' method has no effect.
+    /// A calling of the 'SaveSettings' and 'ClearSettings' method has no effect.
     /// </remarks>
     public class CustomSettingsResources<TData> : CustomSettingsPlayMode<TData> where TData : ScriptableObject
     {
@@ -27,6 +27,11 @@ namespace UGF.CustomSettings.Runtime
             ResourcesPath = resourcesPath;
         }
 
+        public override bool Exists()
+        {
+            return Resources.Load<TData>(ResourcesPath) != null;
+        }
+
         protected override void OnSaveSettings(TData data)
         {
         }
@@ -37,12 +42,14 @@ namespace UGF.CustomSettings.Runtime
 
             if (data == null)
             {
-                Debug.LogWarning($"{typeof(TData).Name}: no settings data found at resources path: '{ResourcesPath}'.");
-
-                data = ScriptableObject.CreateInstance<TData>();
+                throw new ArgumentException($"{typeof(TData).Name}: no settings data found at resources path: '{ResourcesPath}'.");
             }
 
             return data;
+        }
+
+        protected override void OnClearSettings()
+        {
         }
     }
 }

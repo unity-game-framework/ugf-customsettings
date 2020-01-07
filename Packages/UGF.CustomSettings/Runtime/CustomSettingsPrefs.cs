@@ -31,6 +31,11 @@ namespace UGF.CustomSettings.Runtime
             ForceSave = forceSave;
         }
 
+        public override bool Exists()
+        {
+            return PlayerPrefs.HasKey(Key);
+        }
+
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -53,6 +58,11 @@ namespace UGF.CustomSettings.Runtime
             JsonUtility.FromJsonOverwrite(text, data);
 
             return data;
+        }
+
+        protected override void OnClearSettings()
+        {
+            PlayerPrefs.DeleteKey(Key);
         }
     }
 }

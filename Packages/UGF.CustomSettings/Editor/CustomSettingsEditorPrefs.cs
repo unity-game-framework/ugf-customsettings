@@ -26,6 +26,11 @@ namespace UGF.CustomSettings.Editor
             Key = key;
         }
 
+        public override bool Exists()
+        {
+            return EditorPrefs.HasKey(Key);
+        }
+
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -43,6 +48,11 @@ namespace UGF.CustomSettings.Editor
             EditorJsonUtility.FromJsonOverwrite(text, target);
 
             return target;
+        }
+
+        protected override void OnClearSettings()
+        {
+            EditorPrefs.DeleteKey(Key);
         }
     }
 }

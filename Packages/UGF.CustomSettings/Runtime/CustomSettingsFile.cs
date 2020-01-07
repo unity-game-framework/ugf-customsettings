@@ -25,6 +25,11 @@ namespace UGF.CustomSettings.Runtime
             FilePath = filePath;
         }
 
+        public override bool Exists()
+        {
+            return File.Exists(FilePath);
+        }
+
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -54,6 +59,14 @@ namespace UGF.CustomSettings.Runtime
             JsonUtility.FromJsonOverwrite(text, data);
 
             return data;
+        }
+
+        protected override void OnClearSettings()
+        {
+            if (File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+            }
         }
     }
 }

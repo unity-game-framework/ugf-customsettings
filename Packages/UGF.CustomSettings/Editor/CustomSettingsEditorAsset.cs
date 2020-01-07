@@ -41,6 +41,11 @@ namespace UGF.CustomSettings.Editor
             AssetPath = assetPath;
         }
 
+        public override bool Exists()
+        {
+            return File.Exists(AssetPath);
+        }
+
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -54,6 +59,21 @@ namespace UGF.CustomSettings.Editor
         protected override TData OnLoadSettings()
         {
             return HasExternalPath ? LoadFromFile(AssetPath) : LoadFromAssetDatabase(AssetPath);
+        }
+
+        protected override void OnClearSettings()
+        {
+            if (File.Exists(AssetPath))
+            {
+                if (HasExternalPath)
+                {
+                    File.Delete(AssetPath);
+                }
+                else
+                {
+                    AssetDatabase.MoveAssetToTrash(AssetPath);
+                }
+            }
         }
 
         private static TData LoadFromAssetDatabase(string assetPath)

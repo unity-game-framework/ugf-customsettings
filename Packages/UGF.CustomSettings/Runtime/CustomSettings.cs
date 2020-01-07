@@ -22,6 +22,11 @@ namespace UGF.CustomSettings.Runtime
         public event Action Loaded;
 
         /// <summary>
+        /// Event triggered after data clear completed.
+        /// </summary>
+        public event Action Cleared;
+
+        /// <summary>
         /// Gets the settings data.
         /// </summary>
         /// <remarks>
@@ -45,8 +50,15 @@ namespace UGF.CustomSettings.Runtime
         /// <summary>
         /// Determines whether settings data can be saved.
         /// </summary>
-        /// <returns></returns>
         public virtual bool CanSave()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Determines whether settings data exists.
+        /// </summary>
+        public virtual bool Exists()
         {
             return true;
         }
@@ -83,6 +95,16 @@ namespace UGF.CustomSettings.Runtime
         }
 
         /// <summary>
+        /// Clears settings data file or storage.
+        /// </summary>
+        public void ClearSettings()
+        {
+            OnClearSettings();
+
+            Cleared?.Invoke();
+        }
+
+        /// <summary>
         /// Override this method to implement saving of the data.
         /// </summary>
         /// <param name="data">The data to save.</param>
@@ -101,6 +123,13 @@ namespace UGF.CustomSettings.Runtime
 #pragma warning disable 618
             return Load();
 #pragma warning restore 618
+        }
+
+        /// <summary>
+        /// Override this method to implement clearing of the data.
+        /// </summary>
+        protected virtual void OnClearSettings()
+        {
         }
     }
 }
