@@ -63,6 +63,8 @@ namespace UGF.CustomSettings.Runtime
 
         protected override void OnClearSettings()
         {
+            base.OnClearSettings();
+
             if (File.Exists(FilePath))
             {
                 File.Delete(FilePath);

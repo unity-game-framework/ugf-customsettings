@@ -126,7 +126,7 @@ namespace UGF.CustomSettings.Runtime
         }
 
         /// <summary>
-        /// Override this method to implement clearing of the data.
+        /// Override this method to implement clear of the data.
         /// </summary>
         protected virtual void OnClearSettings()
         {

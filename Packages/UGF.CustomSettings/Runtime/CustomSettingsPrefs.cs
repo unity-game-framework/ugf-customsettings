@@ -62,6 +62,8 @@ namespace UGF.CustomSettings.Runtime
 
         protected override void OnClearSettings()
         {
+            base.OnClearSettings();
+
             PlayerPrefs.DeleteKey(Key);
         }
     }

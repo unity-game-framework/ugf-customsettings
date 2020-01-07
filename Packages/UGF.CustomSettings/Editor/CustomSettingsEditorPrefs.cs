@@ -52,6 +52,8 @@ namespace UGF.CustomSettings.Editor
 
         protected override void OnClearSettings()
         {
+            base.OnClearSettings();
+
             EditorPrefs.DeleteKey(Key);
         }
     }

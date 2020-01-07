@@ -47,9 +47,5 @@ namespace UGF.CustomSettings.Runtime
 
             return data;
         }
-
-        protected override void OnClearSettings()
-        {
-        }
     }
 }

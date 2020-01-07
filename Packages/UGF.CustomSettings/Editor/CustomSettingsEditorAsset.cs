@@ -68,6 +68,8 @@ namespace UGF.CustomSettings.Editor
 
         protected override void OnClearSettings()
         {
+            base.OnClearSettings();
+
             if (File.Exists(AssetPath))
             {
                 if (HasExternalPath)

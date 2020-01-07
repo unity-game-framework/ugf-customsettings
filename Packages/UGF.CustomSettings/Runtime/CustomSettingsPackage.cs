@@ -68,6 +68,8 @@ namespace UGF.CustomSettings.Runtime
 
         protected override void OnClearSettings()
         {
+            base.OnClearSettings();
+
 #if UNITY_EDITOR
             string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
 
