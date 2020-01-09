@@ -9,7 +9,7 @@ namespace UGF.CustomSettings.Editor.Tests
         (
             "UGF.Test.Editor.Package.External",
             "TestEditorPackageExternalSettings",
-            CustomSettingsEditorUtility.DefaultPackageExternalFolder
+            CustomSettingsEditorUtility.DEFAULT_PACKAGE_EXTERNAL_FOLDER
         );
 
         [SettingsProvider, UsedImplicitly]

@@ -31,7 +31,12 @@ namespace UGF.CustomSettings.Runtime
             ForceSave = forceSave;
         }
 
-        protected override void Save(TData data)
+        public override bool Exists()
+        {
+            return PlayerPrefs.HasKey(Key);
+        }
+
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -45,7 +50,7 @@ namespace UGF.CustomSettings.Runtime
             }
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             string text = PlayerPrefs.GetString(Key, "{}");
             var data = ScriptableObject.CreateInstance<TData>();
@@ -53,6 +58,13 @@ namespace UGF.CustomSettings.Runtime
             JsonUtility.FromJsonOverwrite(text, data);
 
             return data;
+        }
+
+        protected override void OnClearSettings()
+        {
+            base.OnClearSettings();
+
+            PlayerPrefs.DeleteKey(Key);
         }
     }
 }

@@ -9,8 +9,23 @@ namespace UGF.CustomSettings.Runtime
     /// <remarks>
     /// Inherit this class to implement settings load and save behaviour.
     /// </remarks>
-    public abstract class CustomSettings<TData> where TData : ScriptableObject
+    public abstract partial class CustomSettings<TData> where TData : ScriptableObject
     {
+        /// <summary>
+        /// Event triggered after data saving completed.
+        /// </summary>
+        public event Action Saved;
+
+        /// <summary>
+        /// Event triggered after data loading completed.
+        /// </summary>
+        public event Action Loaded;
+
+        /// <summary>
+        /// Event triggered after data clear completed.
+        /// </summary>
+        public event Action Cleared;
+
         /// <summary>
         /// Gets the settings data.
         /// </summary>
@@ -23,12 +38,7 @@ namespace UGF.CustomSettings.Runtime
             {
                 if (m_data == null)
                 {
-                    m_data = Load();
-
-                    if (m_data == null)
-                    {
-                        throw new ArgumentException($"{typeof(TData).Name}: no settings data found.");
-                    }
+                    LoadSettings();
                 }
 
                 return m_data;
@@ -38,37 +48,88 @@ namespace UGF.CustomSettings.Runtime
         private TData m_data;
 
         /// <summary>
-        /// Saves settings data, if available.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="CanSave"/> determines whether settings can be saved.
-        /// </remarks>
-        public void Save()
-        {
-            if (CanSave())
-            {
-                Save(m_data);
-            }
-        }
-
-        /// <summary>
         /// Determines whether settings data can be saved.
         /// </summary>
-        /// <returns></returns>
         public virtual bool CanSave()
         {
             return true;
         }
 
         /// <summary>
-        /// Invoked to preform saving of the specified data.
+        /// Determines whether settings data exists.
         /// </summary>
-        /// <param name="data">The settings data to save.</param>
-        protected abstract void Save(TData data);
+        public virtual bool Exists()
+        {
+            return true;
+        }
 
         /// <summary>
-        /// Invoked to perform settings data loading.
+        /// Saves settings data, if available.
         /// </summary>
-        protected abstract TData Load();
+        /// <remarks>
+        /// <see cref="CanSave"/> determines whether settings can be saved.
+        /// </remarks>
+        public void SaveSettings()
+        {
+            if (CanSave())
+            {
+                OnSaveSettings(m_data);
+
+                Saved?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Loads settings data.
+        /// </summary>
+        public void LoadSettings()
+        {
+            m_data = OnLoadSettings();
+
+            if (m_data == null)
+            {
+                throw new ArgumentException($"{typeof(TData).Name}: no settings data found.");
+            }
+
+            Loaded?.Invoke();
+        }
+
+        /// <summary>
+        /// Clears settings data file or storage.
+        /// </summary>
+        public void ClearSettings()
+        {
+            OnClearSettings();
+
+            Cleared?.Invoke();
+        }
+
+        /// <summary>
+        /// Override this method to implement saving of the data.
+        /// </summary>
+        /// <param name="data">The data to save.</param>
+        protected virtual void OnSaveSettings(TData data)
+        {
+#pragma warning disable 618
+            Save(data);
+#pragma warning restore 618
+        }
+
+        /// <summary>
+        /// Override this method to implement loading of the data.
+        /// </summary>
+        protected virtual TData OnLoadSettings()
+        {
+#pragma warning disable 618
+            return Load();
+#pragma warning restore 618
+        }
+
+        /// <summary>
+        /// Override this method to implement clear of the data.
+        /// </summary>
+        protected virtual void OnClearSettings()
+        {
+        }
     }
 }

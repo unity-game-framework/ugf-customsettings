@@ -19,7 +19,7 @@ namespace UGF.CustomSettings.Editor
         /// <param name="packageName">The name of the package.</param>
         /// <param name="settingsName">The name of the settings.</param>
         /// <param name="folderPath">The path of the folder to store settings data asset.</param>
-        public CustomSettingsEditorPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsEditorUtility.DefaultPackageFolder) : base($"{folderPath}/{packageName}/{settingsName}.asset")
+        public CustomSettingsEditorPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsEditorUtility.DEFAULT_PACKAGE_FOLDER) : base($"{folderPath}/{packageName}/{settingsName}.asset")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));
             if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(settingsName));

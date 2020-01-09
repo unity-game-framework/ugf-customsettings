@@ -11,6 +11,7 @@ namespace UGF.CustomSettings.Runtime
     /// In build just loads settings data asset from resources.
     ///
     /// In editor settings data asset automatically created at specified editor folder, if asset not yet created.
+    /// Calling ClearSettings has effect only in Editor.
     ///
     /// The default folder path is 'Assets/Settings/Resources'.
     /// </remarks>
@@ -30,7 +31,7 @@ namespace UGF.CustomSettings.Runtime
         /// <param name="packageName">The name of the package.</param>
         /// <param name="settingsName">The name of the settings.</param>
         /// <param name="folderPath">The editor folder to store settings data asset.</param>
-        public CustomSettingsPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsUtility.DefaultPackageFolder) : base($"{packageName}/{settingsName}")
+        public CustomSettingsPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsUtility.DEFAULT_PACKAGE_FOLDER) : base($"{packageName}/{settingsName}")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));
             if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(settingsName));
@@ -41,7 +42,7 @@ namespace UGF.CustomSettings.Runtime
             FolderPath = folderPath;
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
 #if UNITY_EDITOR
             string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
@@ -62,7 +63,21 @@ namespace UGF.CustomSettings.Runtime
             }
 #endif
 
-            return base.Load();
+            return base.OnLoadSettings();
+        }
+
+        protected override void OnClearSettings()
+        {
+            base.OnClearSettings();
+
+#if UNITY_EDITOR
+            string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
+
+            if (File.Exists(assetPath))
+            {
+                UnityEditor.AssetDatabase.MoveAssetToTrash(assetPath);
+            }
+#endif
         }
     }
 }
