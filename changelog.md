@@ -26,6 +26,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 1.1.0 - 2020-01-09
+- [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/1.0.0...1.1.0)
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/4?closed=1)
+
+### Added
+- `CustomSettings.Saved` and `CustomSettings.Loaded` events.
+- `CustomSettings.LoadSettings` to load settings data directly.
+- `CustomSettings.ClearSettings` to clear settings data at storage.
+- `CustomSettings.Exists` to determines whether settings data exists at storage.
+
+### Changed
+- Update to Unity 2019.3.
+
+### Deprecated
+- `CustomSettings.Save`: use `CustomSettings.SaveSettings` instead.
+- `CustomSettings.OnSave` and `CustomSettings.OnLoad`: use `CustomSettings.OnSaveSettings` and `CustomSettings.OnLoadSettings`.
+- `CustomSettingsGUIScope`: use `CustomSettingsInspectorScope` instead.
+- `CustomSettingsEditorUtility.DefaultPackageFolder` and `CustomSettingsEditorUtility.DefaultPackageExternalFolder`: use renamed instead.
+
 ## 1.0.0 - 2019-09-15
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.2.0-preview...1.0.0)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/3?closed=1)
