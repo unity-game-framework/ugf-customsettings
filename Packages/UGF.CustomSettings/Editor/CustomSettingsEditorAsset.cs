@@ -41,19 +41,46 @@ namespace UGF.CustomSettings.Editor
             AssetPath = assetPath;
         }
 
-        protected override void Save(TData data)
+        public override bool Exists()
+        {
+            return File.Exists(AssetPath);
+        }
+
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
             if (HasExternalPath)
             {
+                if (!File.Exists(AssetPath))
+                {
+                    CreateDirectory(AssetPath);
+                }
+
                 InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, AssetPath, true);
             }
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             return HasExternalPath ? LoadFromFile(AssetPath) : LoadFromAssetDatabase(AssetPath);
+        }
+
+        protected override void OnClearSettings()
+        {
+            base.OnClearSettings();
+
+            if (File.Exists(AssetPath))
+            {
+                if (HasExternalPath)
+                {
+                    File.Delete(AssetPath);
+                }
+                else
+                {
+                    AssetDatabase.MoveAssetToTrash(AssetPath);
+                }
+            }
         }
 
         private static TData LoadFromAssetDatabase(string assetPath)

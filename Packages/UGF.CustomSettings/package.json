@@ -2,7 +2,7 @@
     "name": "com.ugf.customsettings",
     "displayName": "UGF.CustomSettings",
     "version": "1.0.0",
-    "unity": "2019.2",
+    "unity": "2019.3",
     "description": "Provides utilities to implement custom `ProjectSettings` or `Preferences`, for editor or runtime.",
     "author": {
         "name": "Unity Game Framework",

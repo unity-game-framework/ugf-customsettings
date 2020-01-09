@@ -5,8 +5,8 @@ UGF.CustomSettings
 ## Info
 
 - **Version**: `1.0.0`
-- **Unity Version**: `2019.2.0`
-- **Api Compatibility Level**: `.NET Standard 2.0`
+- **Unity Version**: `2019.3.0`
+- **API Compatibility Level**: `.NET Standard 2.0`
 
 ### Dependencies
 

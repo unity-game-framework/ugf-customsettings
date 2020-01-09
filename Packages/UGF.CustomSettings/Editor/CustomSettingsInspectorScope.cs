@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEditor;
 
 namespace UGF.CustomSettings.Editor
@@ -9,8 +9,7 @@ namespace UGF.CustomSettings.Editor
     /// <remarks>
     /// The main purposes to setup settings to be the same as during drawing editor in 'Inspector' window.
     /// </remarks>
-    [Obsolete("CustomSettingsGUIScope has been deprecated. Use CustomSettingsInspectorScope instead.")]
-    public class CustomSettingsGUIScope : IDisposable
+    public struct CustomSettingsInspectorScope : IDisposable
     {
         private readonly bool m_hierarchyMode;
         private readonly bool m_wideMode;
@@ -19,7 +18,7 @@ namespace UGF.CustomSettings.Editor
         /// Creates scope with the specified enabled argument.
         /// </summary>
         /// <param name="enable">The value determines whether to enable settings in scope.</param>
-        public CustomSettingsGUIScope(bool enable = true)
+        public CustomSettingsInspectorScope(bool enable)
         {
             m_hierarchyMode = EditorGUIUtility.hierarchyMode;
             m_wideMode = EditorGUIUtility.wideMode;

@@ -1,18 +1,19 @@
+﻿using System;
+
 namespace UGF.CustomSettings.Editor
 {
-    /// <summary>
-    /// Provides utilities to work with custom settings in editor.
-    /// </summary>
     public static partial class CustomSettingsEditorUtility
     {
         /// <summary>
         /// Represents the default path of the settings data asset used for editor package settings.
         /// </summary>
-        public const string DEFAULT_PACKAGE_FOLDER = "Assets/Settings/Editor";
+        [Obsolete("DefaultPackageFolder has been deprecated. Use DEFAULT_PACKAGE_FOLDER instead.")]
+        public const string DefaultPackageFolder = "Assets/Settings/Editor";
 
         /// <summary>
         /// Represents the default path of the settings data asset used for editor package settings and stored under the 'ProjectSettings' folder.
         /// </summary>
-        public const string DEFAULT_PACKAGE_EXTERNAL_FOLDER = "ProjectSettings/Packages";
+        [Obsolete("DefaultPackageExternalFolder has been deprecated. Use DEFAULT_PACKAGE_EXTERNAL_FOLDER instead.")]
+        public const string DefaultPackageExternalFolder = "ProjectSettings/Packages";
     }
 }

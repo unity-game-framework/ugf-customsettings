@@ -25,7 +25,12 @@ namespace UGF.CustomSettings.Runtime
             FilePath = filePath;
         }
 
-        protected override void Save(TData data)
+        public override bool Exists()
+        {
+            return File.Exists(FilePath);
+        }
+
+        protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -41,7 +46,7 @@ namespace UGF.CustomSettings.Runtime
             File.WriteAllText(FilePath, text);
         }
 
-        protected override TData Load()
+        protected override TData OnLoadSettings()
         {
             string text = "{}";
             var data = ScriptableObject.CreateInstance<TData>();
@@ -54,6 +59,16 @@ namespace UGF.CustomSettings.Runtime
             JsonUtility.FromJsonOverwrite(text, data);
 
             return data;
+        }
+
+        protected override void OnClearSettings()
+        {
+            base.OnClearSettings();
+
+            if (File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+            }
         }
     }
 }
