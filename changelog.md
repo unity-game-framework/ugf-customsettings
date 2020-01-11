@@ -26,6 +26,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 2.0.0 - 2020-01-11
+- [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/1.1.0...2.0.0)
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/5?closed=1)
+
+### Changed
+- `CustomSettingsEditorPackage` default folder to `ProjectSettings`.
+
+### Removed
+- Deprecated code.
+
 ## 1.1.0 - 2020-01-09
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/1.0.0...1.1.0)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/4?closed=1)

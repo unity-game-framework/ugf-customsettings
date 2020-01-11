@@ -8,8 +8,7 @@ namespace UGF.CustomSettings.Editor.Tests
         public static CustomSettingsEditorPackage<TestSettingsEditorData> Settings { get; } = new CustomSettingsEditorPackage<TestSettingsEditorData>
         (
             "UGF.Test.Editor.Package.External",
-            "TestEditorPackageExternalSettings",
-            CustomSettingsEditorUtility.DEFAULT_PACKAGE_EXTERNAL_FOLDER
+            "TestEditorPackageExternalSettings"
         );
 
         [SettingsProvider, UsedImplicitly]

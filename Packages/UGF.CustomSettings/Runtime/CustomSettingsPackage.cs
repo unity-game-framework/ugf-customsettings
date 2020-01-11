@@ -34,7 +34,7 @@ namespace UGF.CustomSettings.Runtime
         public CustomSettingsPackage(string packageName, string settingsName = "Settings", string folderPath = CustomSettingsUtility.DEFAULT_PACKAGE_FOLDER) : base($"{packageName}/{settingsName}")
         {
             if (string.IsNullOrEmpty(packageName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(packageName));
-            if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The package name cannot be null or empty.", nameof(settingsName));
+            if (string.IsNullOrEmpty(settingsName)) throw new ArgumentException("The settings name cannot be null or empty.", nameof(settingsName));
             if (string.IsNullOrEmpty(folderPath)) throw new ArgumentException("The folder path cannot be null or empty.", nameof(folderPath));
             if (!folderPath.StartsWith("Assets")) throw new ArgumentException("The folder path must be in 'Assets' folder.", nameof(folderPath));
             if (!folderPath.Contains("Resources")) throw new ArgumentException("The folder path must be a part of 'Resources'.", nameof(folderPath));
