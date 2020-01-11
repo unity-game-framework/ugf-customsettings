@@ -9,7 +9,7 @@ namespace UGF.CustomSettings.Runtime
     /// <remarks>
     /// Inherit this class to implement settings load and save behaviour.
     /// </remarks>
-    public abstract partial class CustomSettings<TData> where TData : ScriptableObject
+    public abstract class CustomSettings<TData> where TData : ScriptableObject
     {
         /// <summary>
         /// Event triggered after data saving completed.
@@ -110,9 +110,6 @@ namespace UGF.CustomSettings.Runtime
         /// <param name="data">The data to save.</param>
         protected virtual void OnSaveSettings(TData data)
         {
-#pragma warning disable 618
-            Save(data);
-#pragma warning restore 618
         }
 
         /// <summary>
@@ -120,9 +117,7 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         protected virtual TData OnLoadSettings()
         {
-#pragma warning disable 618
-            return Load();
-#pragma warning restore 618
+            return null;
         }
 
         /// <summary>
