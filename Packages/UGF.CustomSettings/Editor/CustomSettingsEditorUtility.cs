@@ -3,7 +3,7 @@ namespace UGF.CustomSettings.Editor
     /// <summary>
     /// Provides utilities to work with custom settings in editor.
     /// </summary>
-    public static partial class CustomSettingsEditorUtility
+    public static class CustomSettingsEditorUtility
     {
         /// <summary>
         /// Represents the default path of the settings data asset used for editor package settings.
