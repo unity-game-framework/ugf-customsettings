@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -91,6 +92,18 @@ namespace UGF.CustomSettings.Runtime
             if (Exists())
             {
                 UnityEditor.AssetDatabase.MoveAssetToTrash(AssetPath);
+            }
+#endif
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+#if UNITY_EDITOR
+            if (!Exists())
+            {
+                Object.DestroyImmediate(data);
             }
 #endif
         }

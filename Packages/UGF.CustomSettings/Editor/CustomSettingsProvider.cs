@@ -94,6 +94,7 @@ namespace UGF.CustomSettings.Editor
 
         private void CreateEditor()
         {
+            m_settings.LoadSettings();
             m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, m_settings.Data);
             m_provider.OnActivate(string.Empty, null);
         }

@@ -2,6 +2,7 @@ using System;
 using UGF.CustomSettings.Runtime;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Editor
 {
@@ -55,6 +56,13 @@ namespace UGF.CustomSettings.Editor
             base.OnClearSettings();
 
             EditorPrefs.DeleteKey(Key);
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+            Object.DestroyImmediate(data);
         }
     }
 }
