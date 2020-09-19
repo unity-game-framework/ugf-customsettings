@@ -47,6 +47,11 @@ namespace UGF.CustomSettings.Editor
             return File.Exists(AssetPath);
         }
 
+        public override bool CanSave()
+        {
+            return !Exists() || HasExternalPath;
+        }
+
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -56,18 +61,31 @@ namespace UGF.CustomSettings.Editor
                 CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
                 EditorYamlUtility.ToYamlAtPath(Data, AssetPath);
             }
+            else if (!Exists())
+            {
+                CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+                AssetDatabase.CreateAsset(data, AssetPath);
+                AssetDatabase.ImportAsset(AssetPath);
+            }
         }
 
         protected override TData OnLoadSettings()
         {
-            return HasExternalPath ? LoadFromFile(AssetPath) : LoadFromAssetDatabase(AssetPath);
+            if (!Exists())
+            {
+                var data = ScriptableObject.CreateInstance<TData>();
+
+                OnSaveSettings(data);
+            }
+
+            return HasExternalPath ? EditorYamlUtility.FromYamlAtPath<TData>(AssetPath) : AssetDatabase.LoadAssetAtPath<TData>(AssetPath);
         }
 
         protected override void OnClearSettings()
         {
             base.OnClearSettings();
 
-            if (File.Exists(AssetPath))
+            if (Exists())
             {
                 if (HasExternalPath)
                 {
@@ -88,43 +106,6 @@ namespace UGF.CustomSettings.Editor
             {
                 Object.DestroyImmediate(data);
             }
-        }
-
-        private static TData LoadFromAssetDatabase(string assetPath)
-        {
-            var data = AssetDatabase.LoadAssetAtPath<TData>(assetPath);
-
-            if (data == null)
-            {
-                CustomSettingsUtility.CheckAndCreateDirectory(assetPath);
-
-                data = ScriptableObject.CreateInstance<TData>();
-
-                AssetDatabase.CreateAsset(data, assetPath);
-                AssetDatabase.ImportAsset(assetPath);
-            }
-
-            return data;
-        }
-
-        private static TData LoadFromFile(string assetPath)
-        {
-            TData data;
-
-            if (File.Exists(assetPath))
-            {
-                data = EditorYamlUtility.FromYamlAtPath<TData>(assetPath);
-            }
-            else
-            {
-                CustomSettingsUtility.CheckAndCreateDirectory(assetPath);
-
-                data = ScriptableObject.CreateInstance<TData>();
-
-                EditorYamlUtility.ToYamlAtPath(data, assetPath);
-            }
-
-            return data;
         }
     }
 }

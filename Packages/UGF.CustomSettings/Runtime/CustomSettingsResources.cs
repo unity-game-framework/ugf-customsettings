@@ -32,6 +32,11 @@ namespace UGF.CustomSettings.Runtime
             return Resources.Load<TData>(ResourcesPath) != null;
         }
 
+        public override bool CanSave()
+        {
+            return false;
+        }
+
         protected override void OnSaveSettings(TData data)
         {
         }

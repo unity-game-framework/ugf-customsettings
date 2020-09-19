@@ -58,6 +58,11 @@ namespace UGF.CustomSettings.Runtime
 #endif
         }
 
+        public override bool CanSave()
+        {
+            return !Exists();
+        }
+
         protected override void OnSaveSettings(TData data)
         {
 #if UNITY_EDITOR
