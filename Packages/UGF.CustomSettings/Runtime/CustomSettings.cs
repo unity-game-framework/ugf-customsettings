@@ -73,6 +73,8 @@ namespace UGF.CustomSettings.Runtime
         {
             if (CanSave())
             {
+                if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not specified.");
+
                 OnSaveSettings(m_data);
 
                 Saved?.Invoke();
@@ -86,10 +88,7 @@ namespace UGF.CustomSettings.Runtime
         {
             m_data = OnLoadSettings();
 
-            if (m_data == null)
-            {
-                throw new ArgumentException($"{typeof(TData).Name}: no settings data found.");
-            }
+            if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not loaded.");
 
             Loaded?.Invoke();
         }
@@ -117,7 +116,7 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         protected virtual TData OnLoadSettings()
         {
-            return null;
+            throw new InvalidOperationException($"Loading of '{GetType()}' not implemented.");
         }
 
         /// <summary>

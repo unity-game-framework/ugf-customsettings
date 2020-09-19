@@ -50,16 +50,13 @@ namespace UGF.CustomSettings.Editor
         {
             if (m_provider != null)
             {
-                using (new CustomSettingsInspectorScope(true))
+                EditorGUI.BeginChangeCheck();
+
+                m_provider.OnGUI(searchContext);
+
+                if (EditorGUI.EndChangeCheck())
                 {
-                    EditorGUI.BeginChangeCheck();
-
-                    m_provider.OnGUI(searchContext);
-
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        m_settings.SaveSettings();
-                    }
+                    m_settings.SaveSettings();
                 }
             }
 
