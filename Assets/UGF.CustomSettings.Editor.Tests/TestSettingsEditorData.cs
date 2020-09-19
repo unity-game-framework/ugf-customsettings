@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using UGF.CustomSettings.Runtime;
 using UnityEngine;
 
 namespace UGF.CustomSettings.Editor.Tests
 {
-    public class TestSettingsEditorData : ScriptableObject
+    public class TestSettingsEditorData : CustomSettingsData
     {
         [SerializeField] private string m_name;
         [SerializeField] private Material m_material;
