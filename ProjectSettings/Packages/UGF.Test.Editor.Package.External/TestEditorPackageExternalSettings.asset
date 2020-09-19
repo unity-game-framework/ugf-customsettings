@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf8c44cb4d98d14f9e63735eaa694c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Editor Package External
+  m_name: 
   m_material: {fileID: 0}
   m_mask:
     serializedVersion: 2
@@ -20,3 +20,4 @@ MonoBehaviour:
   m_state: 0
   m_list: []
   m_list2: []
+  m_vector3: {x: 0, y: 0, z: 0}
