@@ -10,7 +10,11 @@ namespace UGF.CustomSettings.Editor
 
         public override void OnInspectorGUI()
         {
+            serializedObject.UpdateIfRequiredOrScript();
+
             DrawPropertiesExcluding(serializedObject, m_excluding);
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }
