@@ -15,12 +15,12 @@ namespace UGF.CustomSettings.Runtime
         /// <summary>
         /// Event triggered after data saving completed.
         /// </summary>
-        public event Action Saved;
+        public event Action<TData> Saved;
 
         /// <summary>
         /// Event triggered after data loading completed.
         /// </summary>
-        public event Action Loaded;
+        public event Action<TData> Loaded;
 
         /// <summary>
         /// Event triggered after data clear completed.
@@ -83,7 +83,7 @@ namespace UGF.CustomSettings.Runtime
 
                 OnSaveSettings(m_data);
 
-                Saved?.Invoke();
+                Saved?.Invoke(m_data);
             }
         }
 
@@ -98,7 +98,7 @@ namespace UGF.CustomSettings.Runtime
 
             if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not loaded.");
 
-            Loaded?.Invoke();
+            Loaded?.Invoke(m_data);
         }
 
         /// <summary>
