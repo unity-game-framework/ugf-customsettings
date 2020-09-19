@@ -98,9 +98,13 @@ namespace UGF.CustomSettings.Editor
 
         private static TData LoadFromFile(string assetPath)
         {
-            var data = EditorYamlUtility.FromYamlAtPath<TData>(assetPath);
+            TData data;
 
-            if (data == null)
+            if (File.Exists(assetPath))
+            {
+                data = EditorYamlUtility.FromYamlAtPath<TData>(assetPath);
+            }
+            else
             {
                 CustomSettingsUtility.CheckAndCreateDirectory(assetPath);
 
