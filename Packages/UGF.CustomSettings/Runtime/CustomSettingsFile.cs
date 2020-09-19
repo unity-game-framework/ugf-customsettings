@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -64,6 +65,13 @@ namespace UGF.CustomSettings.Runtime
             {
                 File.Delete(FilePath);
             }
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+            Object.DestroyImmediate(data);
         }
     }
 }
