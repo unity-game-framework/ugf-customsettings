@@ -23,13 +23,11 @@ namespace UGF.CustomSettings.Editor
 
         public void Enable()
         {
-            EditorApplication.playModeStateChanged += OnEditorApplicationPlayModeStateChanged;
             Settings.Loaded += OnLoaded;
         }
 
         public void Disable()
         {
-            EditorApplication.playModeStateChanged -= OnEditorApplicationPlayModeStateChanged;
             Settings.Loaded -= OnLoaded;
             Settings.SaveSettings();
         }
@@ -52,11 +50,6 @@ namespace UGF.CustomSettings.Editor
             {
                 Drawer.DrawGUILayout();
             }
-        }
-
-        private void OnEditorApplicationPlayModeStateChanged(PlayModeStateChange playModeStateChange)
-        {
-            Settings.LoadSettings();
         }
 
         private void OnLoaded(TData data)
