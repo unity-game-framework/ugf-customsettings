@@ -4,6 +4,7 @@ using UGF.CustomSettings.Runtime;
 using UGF.EditorTools.Editor.Yaml;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Editor
 {
@@ -76,6 +77,16 @@ namespace UGF.CustomSettings.Editor
                 {
                     AssetDatabase.MoveAssetToTrash(AssetPath);
                 }
+            }
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+            if (HasExternalPath || !Exists())
+            {
+                Object.DestroyImmediate(data);
             }
         }
 

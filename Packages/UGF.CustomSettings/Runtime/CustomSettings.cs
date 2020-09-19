@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -14,17 +15,22 @@ namespace UGF.CustomSettings.Runtime
         /// <summary>
         /// Event triggered after data saving completed.
         /// </summary>
-        public event Action Saved;
+        public event Action<TData> Saved;
 
         /// <summary>
         /// Event triggered after data loading completed.
         /// </summary>
-        public event Action Loaded;
+        public event Action<TData> Loaded;
 
         /// <summary>
         /// Event triggered after data clear completed.
         /// </summary>
         public event Action Cleared;
+
+        /// <summary>
+        /// Event triggered after data destroy completed.
+        /// </summary>
+        public event Action Destroyed;
 
         /// <summary>
         /// Gets the settings data.
@@ -77,7 +83,7 @@ namespace UGF.CustomSettings.Runtime
 
                 OnSaveSettings(m_data);
 
-                Saved?.Invoke();
+                Saved?.Invoke(m_data);
             }
         }
 
@@ -86,11 +92,13 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         public void LoadSettings()
         {
+            DestroySettings();
+
             m_data = OnLoadSettings();
 
             if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not loaded.");
 
-            Loaded?.Invoke();
+            Loaded?.Invoke(m_data);
         }
 
         /// <summary>
@@ -101,6 +109,21 @@ namespace UGF.CustomSettings.Runtime
             OnClearSettings();
 
             Cleared?.Invoke();
+        }
+
+        /// <summary>
+        /// Destroys settings data.
+        /// </summary>
+        public void DestroySettings()
+        {
+            if (m_data != null)
+            {
+                OnDestroySettings(m_data);
+
+                m_data = null;
+
+                Destroyed?.Invoke();
+            }
         }
 
         /// <summary>
@@ -123,6 +146,17 @@ namespace UGF.CustomSettings.Runtime
         /// Override this method to implement clear of the data.
         /// </summary>
         protected virtual void OnClearSettings()
+        {
+        }
+
+        /// <summary>
+        /// Override this method to implement destroy of the data.
+        /// </summary>
+        /// <param name="data">The data to destroy.</param>
+        /// <remarks>
+        /// This method invoked only when settings data exists.
+        /// </remarks>
+        protected virtual void OnDestroySettings(TData data)
         {
         }
     }

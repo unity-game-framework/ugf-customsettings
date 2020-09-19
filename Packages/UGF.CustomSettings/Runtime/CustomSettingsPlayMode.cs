@@ -45,5 +45,19 @@ namespace UGF.CustomSettings.Runtime
         {
             return !Application.isPlaying;
         }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+#if UNITY_EDITOR
+            if (m_copy != null)
+            {
+                Object.DestroyImmediate(m_copy);
+
+                m_copy = null;
+            }
+#endif
+        }
     }
 }
