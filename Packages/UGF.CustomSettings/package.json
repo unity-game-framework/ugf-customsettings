@@ -22,5 +22,7 @@
     "bintray": {
         "registry": "https://api.bintray.com/content/unity-game-framework/public"
     },
-    "dependencies": {}
+    "dependencies": {
+        "com.ugf.editortools": "1.0.0"
+    }
 }

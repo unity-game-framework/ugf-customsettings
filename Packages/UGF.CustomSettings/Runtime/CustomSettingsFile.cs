@@ -34,12 +34,7 @@ namespace UGF.CustomSettings.Runtime
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            string directory = Path.GetDirectoryName(FilePath);
-
-            if (!string.IsNullOrEmpty(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            CustomSettingsUtility.CheckAndCreateDirectory(FilePath);
 
             string text = JsonUtility.ToJson(data, true);
 

@@ -1,10 +1,9 @@
 using System;
 using System.IO;
 using UGF.CustomSettings.Runtime;
+using UGF.EditorTools.Editor.Yaml;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Editor
 {
@@ -16,7 +15,7 @@ namespace UGF.CustomSettings.Editor
     ///
     /// In editor settings data asset automatically created at specified asset path, if asset not yet created.
     ///
-    /// A calling of the 'Save' method has effect only for assets out of the 'Assets' folder.
+    /// A calling of the 'SaveSettings' method has effect only for assets out of the 'Assets' folder.
     /// </remarks>
     public class CustomSettingsEditorAsset<TData> : CustomSettings<TData> where TData : ScriptableObject
     {
@@ -28,7 +27,7 @@ namespace UGF.CustomSettings.Editor
         /// <summary>
         /// Gets the value determines whether asset path points to file out of the root 'Assets' folder.
         /// </summary>
-        public bool HasExternalPath { get { return !AssetPath.StartsWith("Assets"); } }
+        public bool HasExternalPath { get; }
 
         /// <summary>
         /// Creates settings with the specified asset path.
@@ -39,6 +38,7 @@ namespace UGF.CustomSettings.Editor
             if (string.IsNullOrEmpty(assetPath)) throw new ArgumentException("The asset path cannot be null or empty.", nameof(assetPath));
 
             AssetPath = assetPath;
+            HasExternalPath = !AssetPath.StartsWith("Assets");
         }
 
         public override bool Exists()
@@ -52,12 +52,8 @@ namespace UGF.CustomSettings.Editor
 
             if (HasExternalPath)
             {
-                if (!File.Exists(AssetPath))
-                {
-                    CreateDirectory(AssetPath);
-                }
-
-                InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, AssetPath, true);
+                CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+                EditorYamlUtility.ToYamlAtPath(Data, AssetPath);
             }
         }
 
@@ -89,7 +85,7 @@ namespace UGF.CustomSettings.Editor
 
             if (data == null)
             {
-                CreateDirectory(assetPath);
+                CustomSettingsUtility.CheckAndCreateDirectory(assetPath);
 
                 data = ScriptableObject.CreateInstance<TData>();
 
@@ -102,29 +98,18 @@ namespace UGF.CustomSettings.Editor
 
         private static TData LoadFromFile(string assetPath)
         {
-            Object[] array = InternalEditorUtility.LoadSerializedFileAndForget(assetPath);
-            TData data = array != null && array.Length > 0 ? (TData)array[0] : null;
+            var data = EditorYamlUtility.FromYamlAtPath<TData>(assetPath);
 
             if (data == null)
             {
-                CreateDirectory(assetPath);
+                CustomSettingsUtility.CheckAndCreateDirectory(assetPath);
 
                 data = ScriptableObject.CreateInstance<TData>();
 
-                InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, assetPath, true);
+                EditorYamlUtility.ToYamlAtPath(data, assetPath);
             }
 
             return data;
-        }
-
-        private static void CreateDirectory(string assetPath)
-        {
-            string directoryName = Path.GetDirectoryName(assetPath);
-
-            if (!string.IsNullOrEmpty(directoryName))
-            {
-                Directory.CreateDirectory(directoryName);
-            }
         }
     }
 }

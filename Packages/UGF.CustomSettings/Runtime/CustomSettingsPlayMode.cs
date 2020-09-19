@@ -7,7 +7,6 @@ namespace UGF.CustomSettings.Runtime
     /// </summary>
     /// <remarks>
     /// In play mode returns copy of the original settings data and saving not available.
-    ///
     /// In build just returns the original settings data.
     /// </remarks>
     public abstract class CustomSettingsPlayMode<TData> : CustomSettings<TData> where TData : ScriptableObject

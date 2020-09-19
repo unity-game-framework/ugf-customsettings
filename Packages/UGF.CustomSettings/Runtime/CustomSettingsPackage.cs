@@ -11,7 +11,7 @@ namespace UGF.CustomSettings.Runtime
     /// In build just loads settings data asset from resources.
     ///
     /// In editor settings data asset automatically created at specified editor folder, if asset not yet created.
-    /// Calling ClearSettings has effect only in Editor.
+    /// Calling of the 'SaveSettings' and 'ClearSettings' method has effect only in Editor.
     ///
     /// The default folder path is 'Assets/Settings/Resources'.
     /// </remarks>
@@ -21,6 +21,11 @@ namespace UGF.CustomSettings.Runtime
         /// Gets the path of the folder to store settings data asset.
         /// </summary>
         public string FolderPath { get; }
+
+        /// <summary>
+        /// Gets the full path of the asset at editor project.
+        /// </summary>
+        public string AssetPath { get; }
 
         /// <summary>
         /// Creates settings with the specified package name, settings name and folder path to store settings data asset in editor.
@@ -40,26 +45,38 @@ namespace UGF.CustomSettings.Runtime
             if (!folderPath.Contains("Resources")) throw new ArgumentException("The folder path must be a part of 'Resources'.", nameof(folderPath));
 
             FolderPath = folderPath;
+            AssetPath = $"{FolderPath}/{ResourcesPath}.asset";
+        }
+
+        public override bool Exists()
+        {
+#if UNITY_EDITOR
+            return File.Exists(AssetPath);
+#else
+            return base.Exists();
+#endif
+        }
+
+        protected override void OnSaveSettings(TData data)
+        {
+#if UNITY_EDITOR
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+
+            UnityEditor.AssetDatabase.CreateAsset(data, AssetPath);
+            UnityEditor.AssetDatabase.ImportAsset(AssetPath);
+#endif
         }
 
         protected override TData OnLoadSettings()
         {
 #if UNITY_EDITOR
-            string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
-
-            if (!File.Exists(assetPath))
+            if (!Exists())
             {
-                string directoryName = Path.GetDirectoryName(assetPath);
-
-                if (!string.IsNullOrEmpty(directoryName))
-                {
-                    Directory.CreateDirectory(directoryName);
-                }
-
                 var data = ScriptableObject.CreateInstance<TData>();
 
-                UnityEditor.AssetDatabase.CreateAsset(data, assetPath);
-                UnityEditor.AssetDatabase.ImportAsset(assetPath);
+                OnSaveSettings(data);
             }
 #endif
 
@@ -71,11 +88,9 @@ namespace UGF.CustomSettings.Runtime
             base.OnClearSettings();
 
 #if UNITY_EDITOR
-            string assetPath = $"{FolderPath}/{ResourcesPath}.asset";
-
-            if (File.Exists(assetPath))
+            if (Exists())
             {
-                UnityEditor.AssetDatabase.MoveAssetToTrash(assetPath);
+                UnityEditor.AssetDatabase.MoveAssetToTrash(AssetPath);
             }
 #endif
         }
