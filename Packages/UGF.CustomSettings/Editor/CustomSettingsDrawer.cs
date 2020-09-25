@@ -9,11 +9,7 @@ namespace UGF.CustomSettings.Editor
     public class CustomSettingsDrawer<TData> where TData : ScriptableObject
     {
         public CustomSettings<TData> Settings { get; }
-
-        public EditorDrawer Drawer { get; } = new EditorDrawer
-        {
-            DisplayTitlebar = false
-        };
+        public EditorDrawer Drawer { get; } = new EditorDrawer();
 
         public CustomSettingsDrawer(CustomSettings<TData> settings)
         {
@@ -24,12 +20,14 @@ namespace UGF.CustomSettings.Editor
         public void Enable()
         {
             Settings.Loaded += OnLoaded;
+            Drawer.Enable();
         }
 
         public void Disable()
         {
             Settings.Loaded -= OnLoaded;
             Settings.SaveSettings();
+            Drawer.Disable();
         }
 
         public void DrawGUILayout()
