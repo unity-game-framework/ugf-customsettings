@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -34,12 +35,7 @@ namespace UGF.CustomSettings.Runtime
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            string directory = Path.GetDirectoryName(FilePath);
-
-            if (!string.IsNullOrEmpty(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            CustomSettingsUtility.CheckAndCreateDirectory(FilePath);
 
             string text = JsonUtility.ToJson(data, true);
 
@@ -69,6 +65,13 @@ namespace UGF.CustomSettings.Runtime
             {
                 File.Delete(FilePath);
             }
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+            Object.DestroyImmediate(data);
         }
     }
 }

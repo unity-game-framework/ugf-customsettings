@@ -12,8 +12,9 @@ namespace UGF.CustomSettings.Editor
     /// </summary>
     public class CustomSettingsProvider<TData> : SettingsProvider where TData : ScriptableObject
     {
+        public CustomSettings<TData> Settings { get; }
+
         private AssetSettingsProvider m_provider;
-        private readonly CustomSettings<TData> m_settings;
 
         /// <summary>
         /// Creates provider with the specified settings path and custom settings.
@@ -24,7 +25,7 @@ namespace UGF.CustomSettings.Editor
         /// <param name="keywords">The search keywords.</param>
         public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords ?? GetSearchKeywordsFromSerializedObject(new SerializedObject(settings.Data)))
         {
-            m_settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
@@ -50,16 +51,13 @@ namespace UGF.CustomSettings.Editor
         {
             if (m_provider != null)
             {
-                using (new CustomSettingsInspectorScope(true))
+                EditorGUI.BeginChangeCheck();
+
+                m_provider.OnGUI(searchContext);
+
+                if (EditorGUI.EndChangeCheck())
                 {
-                    EditorGUI.BeginChangeCheck();
-
-                    m_provider.OnGUI(searchContext);
-
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        m_settings.SaveSettings();
-                    }
+                    Settings.SaveSettings();
                 }
             }
 
@@ -97,7 +95,9 @@ namespace UGF.CustomSettings.Editor
 
         private void CreateEditor()
         {
-            m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, m_settings.Data);
+            Settings.LoadSettings();
+
+            m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, Settings.Data);
             m_provider.OnActivate(string.Empty, null);
         }
     }

@@ -14,5 +14,10 @@ namespace UGF.CustomSettings.Editor
         /// Represents the default path of the settings data asset used for editor package settings and stored under the 'ProjectSettings' folder.
         /// </summary>
         public const string DEFAULT_PACKAGE_EXTERNAL_FOLDER = "ProjectSettings/Packages";
+
+        /// <summary>
+        /// Represents the default path of the settings data asset used for editor package settings and stored under the 'UserSettings' folder.
+        /// </summary>
+        public const string DEFAULT_PACKAGE_EXTERNAL_USER_FOLDER = "UserSettings/Packages";
     }
 }

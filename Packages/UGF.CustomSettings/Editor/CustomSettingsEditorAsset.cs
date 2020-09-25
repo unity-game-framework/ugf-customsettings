@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using UGF.CustomSettings.Runtime;
+using UGF.EditorTools.Editor.Yaml;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -16,7 +16,7 @@ namespace UGF.CustomSettings.Editor
     ///
     /// In editor settings data asset automatically created at specified asset path, if asset not yet created.
     ///
-    /// A calling of the 'Save' method has effect only for assets out of the 'Assets' folder.
+    /// A calling of the 'SaveSettings' method has effect only for assets out of the 'Assets' folder.
     /// </remarks>
     public class CustomSettingsEditorAsset<TData> : CustomSettings<TData> where TData : ScriptableObject
     {
@@ -28,7 +28,7 @@ namespace UGF.CustomSettings.Editor
         /// <summary>
         /// Gets the value determines whether asset path points to file out of the root 'Assets' folder.
         /// </summary>
-        public bool HasExternalPath { get { return !AssetPath.StartsWith("Assets"); } }
+        public bool HasExternalPath { get; }
 
         /// <summary>
         /// Creates settings with the specified asset path.
@@ -39,11 +39,17 @@ namespace UGF.CustomSettings.Editor
             if (string.IsNullOrEmpty(assetPath)) throw new ArgumentException("The asset path cannot be null or empty.", nameof(assetPath));
 
             AssetPath = assetPath;
+            HasExternalPath = !AssetPath.StartsWith("Assets");
         }
 
         public override bool Exists()
         {
             return File.Exists(AssetPath);
+        }
+
+        public override bool CanSave()
+        {
+            return !Exists() || HasExternalPath;
         }
 
         protected override void OnSaveSettings(TData data)
@@ -52,25 +58,34 @@ namespace UGF.CustomSettings.Editor
 
             if (HasExternalPath)
             {
-                if (!File.Exists(AssetPath))
-                {
-                    CreateDirectory(AssetPath);
-                }
-
-                InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, AssetPath, true);
+                CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+                EditorYamlUtility.ToYamlAtPath(Data, AssetPath);
+            }
+            else if (!Exists())
+            {
+                CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+                AssetDatabase.CreateAsset(data, AssetPath);
+                AssetDatabase.ImportAsset(AssetPath);
             }
         }
 
         protected override TData OnLoadSettings()
         {
-            return HasExternalPath ? LoadFromFile(AssetPath) : LoadFromAssetDatabase(AssetPath);
+            if (!Exists())
+            {
+                var data = ScriptableObject.CreateInstance<TData>();
+
+                OnSaveSettings(data);
+            }
+
+            return HasExternalPath ? EditorYamlUtility.FromYamlAtPath<TData>(AssetPath) : AssetDatabase.LoadAssetAtPath<TData>(AssetPath);
         }
 
         protected override void OnClearSettings()
         {
             base.OnClearSettings();
 
-            if (File.Exists(AssetPath))
+            if (Exists())
             {
                 if (HasExternalPath)
                 {
@@ -83,47 +98,13 @@ namespace UGF.CustomSettings.Editor
             }
         }
 
-        private static TData LoadFromAssetDatabase(string assetPath)
+        protected override void OnDestroySettings(TData data)
         {
-            var data = AssetDatabase.LoadAssetAtPath<TData>(assetPath);
+            base.OnDestroySettings(data);
 
-            if (data == null)
+            if (HasExternalPath || !Exists())
             {
-                CreateDirectory(assetPath);
-
-                data = ScriptableObject.CreateInstance<TData>();
-
-                AssetDatabase.CreateAsset(data, assetPath);
-                AssetDatabase.ImportAsset(assetPath);
-            }
-
-            return data;
-        }
-
-        private static TData LoadFromFile(string assetPath)
-        {
-            Object[] array = InternalEditorUtility.LoadSerializedFileAndForget(assetPath);
-            TData data = array != null && array.Length > 0 ? (TData)array[0] : null;
-
-            if (data == null)
-            {
-                CreateDirectory(assetPath);
-
-                data = ScriptableObject.CreateInstance<TData>();
-
-                InternalEditorUtility.SaveToSerializedFileAndForget(new Object[] { data }, assetPath, true);
-            }
-
-            return data;
-        }
-
-        private static void CreateDirectory(string assetPath)
-        {
-            string directoryName = Path.GetDirectoryName(assetPath);
-
-            if (!string.IsNullOrEmpty(directoryName))
-            {
-                Directory.CreateDirectory(directoryName);
+                Object.DestroyImmediate(data);
             }
         }
     }

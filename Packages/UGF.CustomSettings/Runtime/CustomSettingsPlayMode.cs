@@ -7,7 +7,6 @@ namespace UGF.CustomSettings.Runtime
     /// </summary>
     /// <remarks>
     /// In play mode returns copy of the original settings data and saving not available.
-    ///
     /// In build just returns the original settings data.
     /// </remarks>
     public abstract class CustomSettingsPlayMode<TData> : CustomSettings<TData> where TData : ScriptableObject
@@ -45,6 +44,20 @@ namespace UGF.CustomSettings.Runtime
         public override bool CanSave()
         {
             return !Application.isPlaying;
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+#if UNITY_EDITOR
+            if (m_copy != null)
+            {
+                Object.DestroyImmediate(m_copy);
+
+                m_copy = null;
+            }
+#endif
         }
     }
 }

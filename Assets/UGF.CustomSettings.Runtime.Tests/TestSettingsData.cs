@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UGF.CustomSettings.Runtime.Tests
 {
-    public class TestSettingsData : ScriptableObject
+    public class TestSettingsData : CustomSettingsData
     {
         [SerializeField] private string m_name;
         [SerializeField] private Material m_material;

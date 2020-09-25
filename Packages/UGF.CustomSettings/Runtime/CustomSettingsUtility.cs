@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace UGF.CustomSettings.Runtime
 {
     /// <summary>
@@ -9,5 +11,15 @@ namespace UGF.CustomSettings.Runtime
         /// Represents the default path of the settings data asset used for runtime package settings.
         /// </summary>
         public const string DEFAULT_PACKAGE_FOLDER = "Assets/Settings/Resources";
+
+        public static void CheckAndCreateDirectory(string path)
+        {
+            string directory = Path.GetDirectoryName(path);
+
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+        }
     }
 }

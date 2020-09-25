@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -65,6 +66,13 @@ namespace UGF.CustomSettings.Runtime
             base.OnClearSettings();
 
             PlayerPrefs.DeleteKey(Key);
+        }
+
+        protected override void OnDestroySettings(TData data)
+        {
+            base.OnDestroySettings(data);
+
+            Object.DestroyImmediate(data);
         }
     }
 }
