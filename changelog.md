@@ -1,32 +1,43 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased - 2019-01-01
-- [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.0.0...0.0.0)
-- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/0?closed=1)
+## [3.0.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.0.0) - 2020-09-25  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/6?closed=1)  
+    
 
 ### Added
-- Nothing.
+
+- Add options to use custom settings in custom editor window ([#26](https://github.com/unity-game-framework/ugf-customsettings/pull/26))  
+    - Add `CustomSettingsWindow` to draw settings in separate editor window.
+    - Add `CustomSettingsDrawer` to draw settings in GUI layout.
+- Add destroy settings data ([#24](https://github.com/unity-game-framework/ugf-customsettings/pull/24))  
+    - Add `DestroySettings` method with `OnDestroySettings` to override destroy behaviour, non by default.
+    - Add `Destroyed` event, which triggered after data destroy completed.
+    - Change `LoadSettings` to destroy exist data object before loading new one.
+    - Change `CustomSettingsProvider` to force load settings when activated.
+- Dont display script field in settings GUI ([#21](https://github.com/unity-game-framework/ugf-customsettings/pull/21))  
+    - Add `CustomSettingsData` as default implementation of `ScriptableObject` used for settings data.
+    - Add `CustomSettingsDataEditor` as default implementation of `Editor` for `CustomSettingsData`, and which do not display `Script` field.
+- Add support for UserSettings folder ([#20](https://github.com/unity-game-framework/ugf-customsettings/pull/20))  
+    - Add `CustomSettingsEditorUtility.DEFAULT_PACKAGE_EXTERNAL_USER_FOLDER` constant to use with settings stored under the `UserSettings` folder, with default value `UserSettings/Packages`.
 
 ### Changed
-- Nothing.
 
-### Deprecated
-- Nothing.
+- Change Saved and Loaded event to pass Data as argument ([#25](https://github.com/unity-game-framework/ugf-customsettings/pull/25))  
+- Refactoring and cleanup ([#19](https://github.com/unity-game-framework/ugf-customsettings/pull/19))  
+    - Add `com.ugf.editortools` dependency.
+    - Remove `CustomSettingsInspectorScope`.
+- Update to Unity 2020.1 ([#18](https://github.com/unity-game-framework/ugf-customsettings/pull/18))
 
-### Removed
-- Nothing.
+## [2.0.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/2.0.0) - 2020-01-11  
 
-### Fixed
-- Nothing.
-
-### Security
-- Nothing.
-
-## 2.0.0 - 2020-01-11
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/1.1.0...2.0.0)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/5?closed=1)
 
@@ -36,7 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Deprecated code.
 
-## 1.1.0 - 2020-01-09
+## [1.1.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/1.1.0) - 2020-01-09  
+
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/1.0.0...1.1.0)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/4?closed=1)
 
@@ -55,14 +67,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CustomSettingsGUIScope`: use `CustomSettingsInspectorScope` instead.
 - `CustomSettingsEditorUtility.DefaultPackageFolder` and `CustomSettingsEditorUtility.DefaultPackageExternalFolder`: use renamed instead.
 
-## 1.0.0 - 2019-09-15
+## [1.0.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/1.0.0) - 2019-09-15  
+
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.2.0-preview...1.0.0)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/3?closed=1)
 
 ### Added
 - `CustomSettingsGUIScope`: `GUI` scope to drawing editor with the same setup as in `Inspector` window.
 
-## 0.2.0-preview - 2019-09-08
+## [0.2.0-preview](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/0.2.0-preview) - 2019-09-08  
+
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/0.1.0-preview...0.2.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/2?closed=1)
 
@@ -76,12 +90,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `CustomSettingsEditorPackage` use incorrect path for external package settings.
 
-## 0.1.0-preview - 2019-09-08
+## [0.1.0-preview](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/0.1.0-preview) - 2019-09-07  
+
 - [Commits](https://github.com/unity-game-framework/ugf-customsettings/compare/92e2613...0.1.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/1?closed=1)
 
 ### Added
 - This is a initial release.
 
----
-> Unity Game Framework | Copyright 2019
+
