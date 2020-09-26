@@ -59,7 +59,7 @@ namespace UGF.CustomSettings.Editor
             if (HasExternalPath)
             {
                 CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
-                EditorYamlUtility.ToYamlAtPath(Data, AssetPath);
+                EditorYamlUtility.ToYamlAtPath(data, AssetPath);
             }
             else if (!Exists())
             {
