@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.1.0) - 2020-11-10  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/8?closed=1)  
+    
+
+### Changed
+
+- Update to Unity 2020.2 ([#35](https://github.com/unity-game-framework/ugf-customsettings/pull/35))  
+
+### Fixed
+
+- Fix settings not saving to disk for settings from asset ([#36](https://github.com/unity-game-framework/ugf-customsettings/pull/36))  
+    - Fix `CustomSettingsEditorAsset` and `CustomSettingsPackage` does not saving changes on disk when modify them via code.
+    - Change `CustomSettingsResources` always allows saving, but it has no effect.
+
 ## [3.0.1](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.0.1) - 2020-09-26  
 
 ### Release Notes

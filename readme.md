@@ -4,13 +4,13 @@ UGF.CustomSettings
 
 ## Info
 
-- **Version**: `3.0.1`
-- **Unity**: `2020.1`
+- **Version**: `3.1.0`
+- **Unity**: `2020.2`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
 ### Dependencies
 
-- `com.ugf.editortools`: `1.1.0`
+- `com.ugf.editortools`: `1.6.0`
 
 
 ### Description
