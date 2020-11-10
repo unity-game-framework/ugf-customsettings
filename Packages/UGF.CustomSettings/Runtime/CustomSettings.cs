@@ -138,7 +138,7 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         protected virtual TData OnLoadSettings()
         {
-            throw new InvalidOperationException($"Loading of '{GetType()}' not implemented.");
+            throw new InvalidOperationException($"Settings has no loading implementation for specified type: '{GetType()}'.");
         }
 
         /// <summary>
