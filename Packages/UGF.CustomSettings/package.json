@@ -2,7 +2,7 @@
   "name": "com.ugf.customsettings",
   "displayName": "UGF.CustomSettings",
   "version": "3.0.1",
-  "unity": "2020.1",
+  "unity": "2020.2",
   "apiCompatibility": ".NET Standard 2.0",
   "description": "Provides utilities to implement custom ProjectSettings or Preferences, for editor or runtime.",
   "author": {
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git://github.com/unity-game-framework/ugf-customsettings.git"
   },
-  "changelogUrl": "https://github.com/unity-game-framework/ugf-customsettings/blob/master/license",
-  "licenseUrl": "https://github.com/unity-game-framework/ugf-customsettings/blob/master/changelog.md",
+  "changelogUrl": "https://github.com/unity-game-framework/ugf-customsettings/blob/master/changelog.md",
+  "licensesUrl": "https://github.com/unity-game-framework/ugf-customsettings/blob/master/license",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@unity-game-framework"
   },
@@ -22,6 +22,6 @@
     "registry": "https://api.bintray.com/content/unity-game-framework/public"
   },
   "dependencies": {
-    "com.ugf.editortools": "1.1.0"
+    "com.ugf.editortools": "1.6.0"
   }
 }

@@ -15,8 +15,6 @@ namespace UGF.CustomSettings.Editor
     /// This settings supports saving and loading settings data asset whether asset path points to file under the 'Assets' folder or not.
     ///
     /// In editor settings data asset automatically created at specified asset path, if asset not yet created.
-    ///
-    /// A calling of the 'SaveSettings' method has effect only for assets out of the 'Assets' folder.
     /// </remarks>
     public class CustomSettingsEditorAsset<TData> : CustomSettings<TData> where TData : ScriptableObject
     {
@@ -47,11 +45,6 @@ namespace UGF.CustomSettings.Editor
             return File.Exists(AssetPath);
         }
 
-        public override bool CanSave()
-        {
-            return !Exists() || HasExternalPath;
-        }
-
         protected override void OnSaveSettings(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -61,11 +54,20 @@ namespace UGF.CustomSettings.Editor
                 CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
                 EditorYamlUtility.ToYamlAtPath(data, AssetPath);
             }
-            else if (!Exists())
+            else
             {
-                CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
-                AssetDatabase.CreateAsset(data, AssetPath);
-                AssetDatabase.ImportAsset(AssetPath);
+                if (Exists())
+                {
+                    EditorUtility.SetDirty(data);
+                }
+                else
+                {
+                    CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
+                    AssetDatabase.CreateAsset(data, AssetPath);
+                    AssetDatabase.ImportAsset(AssetPath);
+                }
+
+                AssetDatabase.SaveAssets();
             }
         }
 

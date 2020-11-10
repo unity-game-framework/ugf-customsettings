@@ -1,5 +1,6 @@
 {
     "name": "UGF.CustomSettings.Editor",
+    "rootNamespace": "UGF.CustomSettings.Editor",
     "references": [
         "GUID:ff62901452104d14cae29322ac133c05",
         "GUID:abdd615e45137c74ca2ce9c636c78c15"
