@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
+--- !u!114 &1
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf8c44cb4d98d14f9e63735eaa694c6, type: 3}
   m_Name: TestEditorPackageSettings
   m_EditorClassIdentifier: 
-  m_name: Test 2
+  m_name: Editor Package
   m_material: {fileID: 0}
   m_mask:
     serializedVersion: 2

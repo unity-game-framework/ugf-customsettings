@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UGF.CustomSettings.Runtime
 {
@@ -16,7 +14,7 @@ namespace UGF.CustomSettings.Runtime
     ///
     /// The default folder path is 'Assets/Settings/Resources'.
     /// </remarks>
-    public class CustomSettingsPackage<TData> : CustomSettingsResources<TData> where TData : ScriptableObject
+    public partial class CustomSettingsPackage<TData> : CustomSettingsResources<TData> where TData : ScriptableObject
     {
         /// <summary>
         /// Gets the path of the folder to store settings data asset.
@@ -47,70 +45,6 @@ namespace UGF.CustomSettings.Runtime
 
             FolderPath = folderPath;
             AssetPath = $"{FolderPath}/{ResourcesPath}.asset";
-        }
-
-        public override bool Exists()
-        {
-#if UNITY_EDITOR
-            return File.Exists(AssetPath);
-#else
-            return base.Exists();
-#endif
-        }
-
-        public override bool CanSave()
-        {
-            return !Exists();
-        }
-
-        protected override void OnSaveSettings(TData data)
-        {
-#if UNITY_EDITOR
-            if (data == null) throw new ArgumentNullException(nameof(data));
-
-            CustomSettingsUtility.CheckAndCreateDirectory(AssetPath);
-
-            UnityEditor.AssetDatabase.CreateAsset(data, AssetPath);
-            UnityEditor.AssetDatabase.ImportAsset(AssetPath);
-#endif
-        }
-
-        protected override TData OnLoadSettings()
-        {
-#if UNITY_EDITOR
-            if (!Exists())
-            {
-                var data = ScriptableObject.CreateInstance<TData>();
-
-                OnSaveSettings(data);
-            }
-#endif
-
-            return base.OnLoadSettings();
-        }
-
-        protected override void OnClearSettings()
-        {
-            base.OnClearSettings();
-
-#if UNITY_EDITOR
-            if (Exists())
-            {
-                UnityEditor.AssetDatabase.MoveAssetToTrash(AssetPath);
-            }
-#endif
-        }
-
-        protected override void OnDestroySettings(TData data)
-        {
-            base.OnDestroySettings(data);
-
-#if UNITY_EDITOR
-            if (!Exists())
-            {
-                Object.DestroyImmediate(data);
-            }
-#endif
         }
     }
 }
