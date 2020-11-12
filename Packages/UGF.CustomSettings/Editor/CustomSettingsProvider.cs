@@ -45,6 +45,8 @@ namespace UGF.CustomSettings.Editor
             ClearEditor();
 
             base.OnDeactivate();
+
+            Settings.SaveSettings();
         }
 
         public override void OnGUI(string searchContext)
@@ -57,7 +59,7 @@ namespace UGF.CustomSettings.Editor
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Settings.SaveSettings();
+                    Settings.SaveSettings(false);
                 }
             }
 

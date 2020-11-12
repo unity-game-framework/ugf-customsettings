@@ -45,7 +45,7 @@ namespace UGF.CustomSettings.Editor
             return File.Exists(AssetPath);
         }
 
-        protected override void OnSaveSettings(TData data)
+        protected override void OnSaveSettings(TData data, bool force)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -67,7 +67,10 @@ namespace UGF.CustomSettings.Editor
                     AssetDatabase.ImportAsset(AssetPath);
                 }
 
-                AssetDatabase.SaveAssets();
+                if (force)
+                {
+                    AssetDatabase.SaveAssets();
+                }
             }
         }
 
@@ -77,7 +80,7 @@ namespace UGF.CustomSettings.Editor
             {
                 var data = ScriptableObject.CreateInstance<TData>();
 
-                OnSaveSettings(data);
+                OnSaveSettings(data, true);
             }
 
             return HasExternalPath ? EditorYamlUtility.FromYamlAtPath<TData>(AssetPath) : AssetDatabase.LoadAssetAtPath<TData>(AssetPath);
