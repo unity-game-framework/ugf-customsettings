@@ -5,27 +5,24 @@ namespace UGF.CustomSettings.Runtime
 {
     public abstract partial class CustomSettingsPlayMode<TData>
     {
-        public override TData Data
-        {
-            get
-            {
-                if (Application.isPlaying)
-                {
-                    if (m_copy == null)
-                    {
-                        m_copy = Object.Instantiate(base.Data);
-                    }
+        private TData m_copy;
 
-                    return m_copy;
+        protected override TData OnGetData()
+        {
+            if (Application.isPlaying)
+            {
+                if (m_copy == null)
+                {
+                    m_copy = Object.Instantiate(base.OnGetData());
                 }
 
-                DestroyCopy();
-
-                return base.Data;
+                return m_copy;
             }
-        }
 
-        private TData m_copy;
+            DestroyCopy();
+
+            return base.OnGetData();
+        }
 
         public override bool CanSave()
         {

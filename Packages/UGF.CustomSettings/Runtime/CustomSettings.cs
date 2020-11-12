@@ -9,7 +9,7 @@ namespace UGF.CustomSettings.Runtime
     /// <remarks>
     /// Inherit this class to implement settings load and save behaviour.
     /// </remarks>
-    public abstract class CustomSettings<TData> where TData : ScriptableObject
+    public abstract partial class CustomSettings<TData> where TData : ScriptableObject
     {
         /// <summary>
         /// Event triggered after data saving completed.
@@ -31,26 +31,18 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         public event Action Destroyed;
 
+        private TData m_data;
+
         /// <summary>
         /// Gets the settings data.
         /// </summary>
         /// <remarks>
         /// If the settings data not yet loaded, the loading will be triggered.
         /// </remarks>
-        public virtual TData Data
+        public TData GetData()
         {
-            get
-            {
-                if (m_data == null)
-                {
-                    LoadSettings();
-                }
-
-                return m_data;
-            }
+            return OnGetData();
         }
-
-        private TData m_data;
 
         /// <summary>
         /// Determines whether settings data can be saved.
@@ -123,6 +115,16 @@ namespace UGF.CustomSettings.Runtime
 
                 Destroyed?.Invoke();
             }
+        }
+
+        protected virtual TData OnGetData()
+        {
+            if (m_data == null)
+            {
+                LoadSettings();
+            }
+
+            return m_data;
         }
 
         /// <summary>
