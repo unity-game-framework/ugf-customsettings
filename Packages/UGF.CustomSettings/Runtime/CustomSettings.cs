@@ -66,13 +66,14 @@ namespace UGF.CustomSettings.Runtime
         /// <remarks>
         /// <see cref="CanSave"/> determines whether settings can be saved.
         /// </remarks>
-        public void SaveSettings()
+        /// <param name="force">The value that determines whether to force data serialization.</param>
+        public void SaveSettings(bool force = true)
         {
             if (CanSave())
             {
                 if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not specified.");
 
-                OnSaveSettings(m_data);
+                OnSaveSettings(m_data, force);
 
                 Saved?.Invoke(m_data);
             }
@@ -131,7 +132,8 @@ namespace UGF.CustomSettings.Runtime
         /// Override this method to implement saving of the data.
         /// </summary>
         /// <param name="data">The data to save.</param>
-        protected virtual void OnSaveSettings(TData data)
+        /// <param name="force">The value that determines whether to force data serialization.</param>
+        protected virtual void OnSaveSettings(TData data, bool force)
         {
         }
 

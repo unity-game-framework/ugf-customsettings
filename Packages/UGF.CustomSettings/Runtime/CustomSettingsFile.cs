@@ -31,7 +31,7 @@ namespace UGF.CustomSettings.Runtime
             return File.Exists(FilePath);
         }
 
-        protected override void OnSaveSettings(TData data)
+        protected override void OnSaveSettings(TData data, bool force)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
