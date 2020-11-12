@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.2.0) - 2020-11-12  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/9?closed=1)  
+    
+
+### Changed
+
+- Add force save settings ([#41](https://github.com/unity-game-framework/ugf-customsettings/pull/41))  
+    - Method `CustomSettings<T>.OnSaveSettings(T data)` has been deprecated. Use `CustomSettings<T>.OnSaveSettings(T data, bool force)` instead.
+    - Add `force` optional argument for `CustomSettings<T>.SaveSettings()` method, to determines whether to force serialization of the settings data.
+    - Change `CustomSettingsPrefs<T>.ForceSave` property to be deprecated, `PlayerPrefs.Save()` now always executed.
+- Change data property to method ([#40](https://github.com/unity-game-framework/ugf-customsettings/pull/40))  
+    - Property `CustomSettings<T>.Data` has been deprecated, use `CustomSettings<T>.GetData()` method instead.
+    - Add `OnGetData()` method to override data loading behaviour.
+
 ## [3.1.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.1.0) - 2020-11-10  
 
 ### Release Notes
