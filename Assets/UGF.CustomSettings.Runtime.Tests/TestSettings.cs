@@ -7,13 +7,13 @@ namespace UGF.CustomSettings.Runtime.Tests
         [Test]
         public void File()
         {
-            Assert.AreEqual("File", TestSettingsFile.Settings.Data.Name);
+            Assert.AreEqual("File", TestSettingsFile.Settings.GetData().Name);
         }
 
         [Test]
         public void Package()
         {
-            Assert.AreEqual("Package", TestSettingsPackage.Settings.Data.Name);
+            Assert.AreEqual("Package", TestSettingsPackage.Settings.GetData().Name);
         }
     }
 }

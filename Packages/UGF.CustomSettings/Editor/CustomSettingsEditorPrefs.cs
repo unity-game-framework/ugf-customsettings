@@ -32,7 +32,7 @@ namespace UGF.CustomSettings.Editor
             return EditorPrefs.HasKey(Key);
         }
 
-        protected override void OnSaveSettings(TData data)
+        protected override void OnSaveSettings(TData data, bool force)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 

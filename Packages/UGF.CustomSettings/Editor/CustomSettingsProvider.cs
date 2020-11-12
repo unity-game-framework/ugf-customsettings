@@ -23,7 +23,7 @@ namespace UGF.CustomSettings.Editor
         /// <param name="settings">The settings of the specific data to display.</param>
         /// <param name="scopes">The scope of the settings.</param>
         /// <param name="keywords">The search keywords.</param>
-        public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords ?? GetSearchKeywordsFromSerializedObject(new SerializedObject(settings.Data)))
+        public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords ?? GetSearchKeywordsFromSerializedObject(new SerializedObject(settings.GetData())))
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
@@ -45,6 +45,8 @@ namespace UGF.CustomSettings.Editor
             ClearEditor();
 
             base.OnDeactivate();
+
+            Settings.SaveSettings();
         }
 
         public override void OnGUI(string searchContext)
@@ -57,7 +59,7 @@ namespace UGF.CustomSettings.Editor
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Settings.SaveSettings();
+                    Settings.SaveSettings(false);
                 }
             }
 
@@ -97,7 +99,7 @@ namespace UGF.CustomSettings.Editor
         {
             Settings.LoadSettings();
 
-            m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, Settings.Data);
+            m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, Settings.GetData());
             m_provider.OnActivate(string.Empty, null);
         }
     }

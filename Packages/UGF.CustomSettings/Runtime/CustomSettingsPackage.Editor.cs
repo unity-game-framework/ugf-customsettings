@@ -14,7 +14,7 @@ namespace UGF.CustomSettings.Runtime
             return File.Exists(AssetPath);
         }
 
-        protected override void OnSaveSettings(TData data)
+        protected override void OnSaveSettings(TData data, bool force)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
@@ -30,7 +30,10 @@ namespace UGF.CustomSettings.Runtime
                 AssetDatabase.ImportAsset(AssetPath);
             }
 
-            AssetDatabase.SaveAssets();
+            if (force)
+            {
+                AssetDatabase.SaveAssets();
+            }
         }
 
         protected override TData OnLoadSettings()
@@ -39,7 +42,7 @@ namespace UGF.CustomSettings.Runtime
             {
                 var data = ScriptableObject.CreateInstance<TData>();
 
-                OnSaveSettings(data);
+                OnSaveSettings(data, true);
             }
 
             return base.OnLoadSettings();
