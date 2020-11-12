@@ -14,7 +14,7 @@ namespace UGF.CustomSettings.Editor
         public CustomSettingsDrawer(CustomSettings<TData> settings)
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
-            Drawer.Set(Settings.Data);
+            Drawer.Set(Settings.GetData());
         }
 
         public void Enable()
