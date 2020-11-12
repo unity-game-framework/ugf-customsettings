@@ -31,26 +31,18 @@ namespace UGF.CustomSettings.Runtime
         /// </summary>
         public event Action Destroyed;
 
+        private TData m_data;
+
         /// <summary>
         /// Gets the settings data.
         /// </summary>
         /// <remarks>
         /// If the settings data not yet loaded, the loading will be triggered.
         /// </remarks>
-        public virtual TData Data
+        public TData GetData()
         {
-            get
-            {
-                if (m_data == null)
-                {
-                    LoadSettings();
-                }
-
-                return m_data;
-            }
+            return OnGetData();
         }
-
-        private TData m_data;
 
         /// <summary>
         /// Determines whether settings data can be saved.
@@ -124,6 +116,16 @@ namespace UGF.CustomSettings.Runtime
 
                 Destroyed?.Invoke();
             }
+        }
+
+        protected virtual TData OnGetData()
+        {
+            if (m_data == null)
+            {
+                LoadSettings();
+            }
+
+            return m_data;
         }
 
         /// <summary>

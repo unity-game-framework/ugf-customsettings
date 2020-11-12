@@ -34,7 +34,7 @@ namespace UGF.CustomSettings.Editor.Tests
         public void Change()
         {
             string name = "Test Name Change";
-            TestSettingsPackage.Settings.Data.Name = name;
+            TestSettingsPackage.Settings.GetData().Name = name;
             TestSettingsPackage.Settings.SaveSettings();
 
             var data = EditorYamlUtility.FromYamlAtPath<TestSettingsData>(PATH);
