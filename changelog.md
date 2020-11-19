@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.3.0) - 2020-11-19  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/10?closed=1)  
+    
+
+### Added
+
+- Add settings provider to ask before trigger data creation ([#44](https://github.com/unity-game-framework/ugf-customsettings/pull/44))  
+    - Add `CustomSettings<T>.DataType` property which returns type of data settings use.
+    - Add `CustomSettings<T>.ForceCreation` property to determine whether to always create data when accessed.
+    - Add `CustomSettings<T>.IsLoaded` property to determine whether data is already loaded.
+    - Change `CustomSettings<T>.SaveSettings()` method behaviour, now checks whether data is loaded or not, before saving.
+    - Change `CustomSettingsProvider` to check whether data exists before display data in settings, and ask user for create permission, unless settings has enabled property to force data creation.
+
 ## [3.2.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.2.0) - 2020-11-12  
 
 ### Release Notes

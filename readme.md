@@ -4,7 +4,7 @@ UGF.CustomSettings
 
 ## Info
 
-- **Version**: `3.2.0`
+- **Version**: `3.3.0`
 - **Unity**: `2020.2`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
