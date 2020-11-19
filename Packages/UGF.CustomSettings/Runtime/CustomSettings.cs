@@ -12,6 +12,21 @@ namespace UGF.CustomSettings.Runtime
     public abstract partial class CustomSettings<TData> where TData : ScriptableObject
     {
         /// <summary>
+        /// Gets type of data used to store settings.
+        /// </summary>
+        public Type DataType { get; } = typeof(TData);
+
+        /// <summary>
+        /// Gets or sets value that determines whether to force data creation in project when file not exist yet, instead of asking user for permission.
+        /// </summary>
+        public bool ForceCreation { get; set; }
+
+        /// <summary>
+        /// Gets value that determines whether settings data is loaded.
+        /// </summary>
+        public bool IsLoaded { get { return m_data != null; } }
+
+        /// <summary>
         /// Event triggered after data saving completed.
         /// </summary>
         public event Action<TData> Saved;
@@ -69,10 +84,8 @@ namespace UGF.CustomSettings.Runtime
         /// <param name="force">The value that determines whether to force data serialization.</param>
         public void SaveSettings(bool force = true)
         {
-            if (CanSave())
+            if (CanSave() && IsLoaded)
             {
-                if (m_data == null) throw new ArgumentException($"Data of '{GetType()}' not specified.");
-
                 OnSaveSettings(m_data, force);
 
                 Saved?.Invoke(m_data);
