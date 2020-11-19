@@ -10,7 +10,10 @@ namespace UGF.CustomSettings.Editor.Tests
             "UGF.Test.Editor.Package",
             "TestEditorPackageSettings",
             CustomSettingsEditorUtility.DEFAULT_PACKAGE_FOLDER
-        );
+        )
+        {
+            ForceCreation = true
+        };
 
         [SettingsProvider, UsedImplicitly]
         private static SettingsProvider GetSettingsProvider()

@@ -23,7 +23,7 @@ namespace UGF.CustomSettings.Editor
         /// <param name="settings">The settings of the specific data to display.</param>
         /// <param name="scopes">The scope of the settings.</param>
         /// <param name="keywords">The search keywords.</param>
-        public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords ?? GetSearchKeywordsFromSerializedObject(new SerializedObject(settings.GetData())))
+        public CustomSettingsProvider(string path, CustomSettings<TData> settings, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords)
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
@@ -46,7 +46,10 @@ namespace UGF.CustomSettings.Editor
 
             base.OnDeactivate();
 
-            Settings.SaveSettings();
+            if (Settings.Exists())
+            {
+                Settings.SaveSettings();
+            }
         }
 
         public override void OnGUI(string searchContext)
@@ -60,6 +63,27 @@ namespace UGF.CustomSettings.Editor
                 if (EditorGUI.EndChangeCheck())
                 {
                     Settings.SaveSettings(false);
+                }
+            }
+            else
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.HelpBox($"Settings data not created: '{Settings.DataType.Name}'.", MessageType.Info);
+                EditorGUILayout.Space();
+
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    GUILayout.FlexibleSpace();
+
+                    if (GUILayout.Button("Create Settings", GUILayout.Width(200F)))
+                    {
+                        Settings.LoadSettings();
+                        Settings.SaveSettings();
+
+                        CreateEditor();
+                    }
+
+                    GUILayout.FlexibleSpace();
                 }
             }
 
@@ -97,10 +121,17 @@ namespace UGF.CustomSettings.Editor
 
         private void CreateEditor()
         {
-            Settings.LoadSettings();
+            if (Settings.ForceCreation || Settings.Exists())
+            {
+                Settings.LoadSettings();
 
-            m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, Settings.GetData());
-            m_provider.OnActivate(string.Empty, null);
+                TData data = Settings.GetData();
+
+                m_provider = AssetSettingsProvider.CreateProviderFromObject(string.Empty, data);
+                m_provider.OnActivate(string.Empty, null);
+
+                keywords = GetSearchKeywordsFromSerializedObject(new SerializedObject(data));
+            }
         }
     }
 }
