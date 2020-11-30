@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.4.0) - 2020-11-30  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/11?closed=1)  
+    
+
+### Added
+
+- Add option to delete data of the settings after creation ([#47](https://github.com/unity-game-framework/ugf-customsettings/pull/47))  
+    - Add `Delete` context menu to settings data to delete any created asset or data.
+
 ## [3.3.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.3.0) - 2020-11-19  
 
 ### Release Notes
