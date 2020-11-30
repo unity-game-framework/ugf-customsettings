@@ -30,6 +30,8 @@ namespace UGF.CustomSettings.Editor
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
+            CustomSettingsDataContextMenu.ClearMenu += OnContextClearMenu;
+            CustomSettingsDataContextMenu.ClearValidate += OnContextClearValidate;
             EditorApplication.playModeStateChanged += OnEditorApplicationPlayModeStateChanged;
 
             ClearEditor();
@@ -40,6 +42,8 @@ namespace UGF.CustomSettings.Editor
 
         public override void OnDeactivate()
         {
+            CustomSettingsDataContextMenu.ClearMenu -= OnContextClearMenu;
+            CustomSettingsDataContextMenu.ClearValidate -= OnContextClearValidate;
             EditorApplication.playModeStateChanged -= OnEditorApplicationPlayModeStateChanged;
 
             ClearEditor();
@@ -102,6 +106,30 @@ namespace UGF.CustomSettings.Editor
             m_provider?.OnFooterBarGUI();
 
             base.OnFooterBarGUI();
+        }
+
+        private void OnContextClearMenu(CustomSettingsData data)
+        {
+            if (m_provider != null && m_provider.settingsEditor.target == data)
+            {
+                string message = $"Data will be deleted for settings at specified path: '{settingsPath}'.\nYou cannot undo this action.";
+
+                if (EditorUtility.DisplayDialog("Delete selected settings data?", message, "Delete", "Cancel"))
+                {
+                    ClearEditor();
+                    Settings.ClearSettings();
+                }
+            }
+        }
+
+        private bool OnContextClearValidate(CustomSettingsData data)
+        {
+            if (m_provider != null && m_provider.settingsEditor.target == data)
+            {
+                return Settings.Exists();
+            }
+
+            return false;
         }
 
         private void OnEditorApplicationPlayModeStateChanged(PlayModeStateChange playModeStateChange)
