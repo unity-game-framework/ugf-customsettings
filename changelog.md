@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.1](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.4.1) - 2021-02-09  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-customsettings/milestone/12?closed=1)  
+    
+
+### Changed
+
+- Update project registry ([#52](https://github.com/unity-game-framework/ugf-customsettings/pull/52))  
+    - Update package publish registry.
+
+### Fixed
+
+- Add dependency for JsonUtility module ([#50](https://github.com/unity-game-framework/ugf-customsettings/pull/50))  
+    - Add missing dependency for _JSONSerialize_ built-in module.
+
 ## [3.4.0](https://github.com/unity-game-framework/ugf-customsettings/releases/tag/3.4.0) - 2020-11-30  
 
 ### Release Notes
