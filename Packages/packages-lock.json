@@ -5,12 +5,12 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.ugf.editortools": "1.7.0"
+        "com.ugf.editortools": "2.5.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
       }
     },
     "com.ugf.editortools": {
-      "version": "1.7.0",
+      "version": "2.5.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
